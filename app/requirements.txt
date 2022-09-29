@@ -5,3 +5,7 @@ tzdata==2022.2
 psycopg2-binary==2.9.1
 gunicorn==20.1.0
 djangorestframework==3.13.1
+djangorestframework-simplejwt
+pytest==6.2.5
+pytest-django==4.4.0
+pytest-factoryboy
