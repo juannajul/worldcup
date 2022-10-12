@@ -11,7 +11,7 @@ from worldcup.serializers.pools_matches import PoolMatchModelSerializer, CreateP
 from worldcup.models.pools_matches import PoolMatch
 
 # Permissions
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 class PoolMatchViewSet(
     mixins.ListModelMixin,

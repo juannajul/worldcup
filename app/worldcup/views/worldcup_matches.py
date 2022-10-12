@@ -11,7 +11,7 @@ from worldcup.serializers.worldcup_matches import WorldcupMatchModelSerializer, 
 from worldcup.models.worldcup_matches import WorldcupMatch
 
 # Permissions
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 class WorldcupMatchViewSet(
     mixins.ListModelMixin,
@@ -31,9 +31,9 @@ class WorldcupMatchViewSet(
             return CreateWorldcupMatchModelSerializer
         return WorldcupMatchModelSerializer
 
-    """
+    
     def get_permissions(self):
-        permissions = [IsAuthenticatedOrReadOnly]
+        permissions = [IsAuthenticated]
         return [p() for p in permissions]
-    """
+    
 

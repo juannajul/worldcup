@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/Qatar2022.png' %}">
+   
+    <title>Worldcup Qatar 2022</title>
+    {% block javascript %}
+        <script defer src="{% static 'js/menu.js' %}"></script>
+    {% endblock javascript %}
+</head>
+<body>
+    <div id="website-area">
+        <header id="header" class="menu-fixed">
+            <nav id="nav" class="menu-desplegable">
+                <div id="logo">
+                    <a href="">
+                        <img src="{% static 'img/Qatar2022.png' %}" alt="Qatar2022">
+                    </a>
+                </div>
+                <div class="menu-btn-nav">
+                    <div class="menu-btn">
+                      <div class="btn__burger"></div>
+                    </div>
+                </div>
+
+
+                <ul id="nav-menu">
+                    <li>
+                        <a href="">RANKINGS</a>
+                    </li>
+                    
+                    <li>
+                        <a href="">MATCHES</a>
+                    </li>
+                    
+                    <li>
+                        <a href="">ALGO</a>
+                    </li>
+                    
+                    <li>
+                        <a href="">OTRO</a>
+                    </li>
+
+                    
+                </ul>
+                <ul id="nav-menu-user">
+                    <li>
+                        <a href="" title="user" id="user-icon" >
+                            <img src="{% static 'img/user.png' %}" alt="user">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+            
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+            
+        </div>
+
+        <footer>
+            <div id="footer-container">
+                juannajulvillegas@gmail.com
+            </div>
+        </footer>
+
+    </div>
+    {% block script %}
+      
+    {% endblock %}
+</body>
+</html>

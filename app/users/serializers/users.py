@@ -57,9 +57,7 @@ class UserLoginSerializer(serializers.Serializer):
     # validar
     def validate(self, data):
         """Check credentials."""
-        print(data)
         user = authenticate(username=data['email'], password=data['password'])
-        print(user)
         if not user:
             raise serializers.ValidationError('Invalid credentials.')
         self.context['user'] = user

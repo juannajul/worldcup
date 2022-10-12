@@ -1,0 +1,53 @@
+#worldcup-matches-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80%;
+    margin-top: 40px;
+    border: 0px solid green;
+}
+
+#worldcup-match-container{
+    width: 300px;
+    margin: 20px;
+    padding: 5px;
+    border: 0px solid #962038b7;
+    border-radius: 5px;
+    box-shadow: -8px 6px 15px rgba(82, 81, 81, 0.356);
+}
+
+#worldcup-match-number-container{
+    margin-top: 3px;
+    border-bottom: 1px solid #962038b7;
+}
+
+#worldcup-match-team_1, #worldcup-match-team_2{
+    display: inline-flex;
+    margin-top: 5px;
+}
+
+#worldcup-match-team_2{
+    margin-bottom: 5px;
+}
+
+.worldcup-match-team_1-code, 
+.worldcup-match-team_2-code{
+    width: 20%;
+}
+
+#worldcup-match-team_1-name,
+#worldcup-match-team_2-name{
+    width: 50%;
+}
+
+#worldcup-match-team_1-goals-container,
+#worldcup-match-team_2-goals-container{
+    width: 30%;
+    margin-right: 5px;
+}
+
+#worldcup-match-team_1-goals,
+#worldcup-match-team_2-goals{
+    width: 100%;
+}

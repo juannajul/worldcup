@@ -68,7 +68,11 @@ class UserViewSet(mixins.RetrieveModelMixin,
             'user': UserModelSerializer(user).data,
             'access_token': token
         }
-        return Response(data, status=status.HTTP_201_CREATED)
+        
+        response = Response(data, status=status.HTTP_200_OK)
+        response.set_cookie(key='access_token', value=token, httponly=True)
+        print(data)
+        return response
     
     
 

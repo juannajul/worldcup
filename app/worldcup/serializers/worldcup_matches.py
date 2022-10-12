@@ -8,8 +8,13 @@ from rest_framework import serializers
 from worldcup.models.worldcup_matches import WorldcupMatch
 from worldcup.models.teams import Team
 
+# Serializers
+from worldcup.serializers.teams import TeamModelSerializer
+
 class WorldcupMatchModelSerializer(serializers.ModelSerializer):
     """Worldcup model serializer."""
+    team_1 = TeamModelSerializer(read_only=True)
+    team_2 = TeamModelSerializer(read_only=True)
 
     class Meta:
         model = WorldcupMatch

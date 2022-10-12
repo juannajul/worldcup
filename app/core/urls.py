@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/worldcup/', include(('worldcup.urls', 'worldcup'), namespace="worldcup")),
     path('api/auth/', include(('users.urls', 'users'), namespace="users")),
+    path('worldcup/qatar/', include(('qatar_2022.urls', 'qatar_2022'), namespace="qatar_2022")),
 ] 
 
 if bool(settings.DEBUG):

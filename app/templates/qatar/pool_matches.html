@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block body %}
+   <section id="pool-matches-content">
+    <div id="worldcup-matches-container"></div>
+   </section>
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static '/js/pool_matches.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/pool_matches_styles.css' %}">
+{% endblock %}
