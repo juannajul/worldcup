@@ -47,3 +47,64 @@ class CreateWorldcupMatchModelSerializer(serializers.ModelSerializer):
         data = WorldcupMatch.objects.create(**data)
 
         return data
+
+class FinishMatchModelSerializer(serializers.Serializer):
+    """Finish match serializer."""
+
+    def update(self, instance , data):
+        """Finish match."""
+       
+        match = instance[0] 
+        data['match'] = match
+        team_1 = Team.objects.get(team_code=instance[0].team_1.team_code)
+        team_1_goals = match.team_1_goals
+        team_2 = Team.objects.get(team_code=instance[0].team_2.team_code)
+        team_2_goals = match.team_2_goals
+        if team_1_goals > team_2_goals:
+            # Team 1 wins
+            team_1.points += 3
+            team_1.wins += 1
+            team_2.losses += 1
+            team_1.goals_for += team_1_goals
+            team_1.goals_against += team_2_goals
+            team_1.goals_difference = team_1.goals_for - team_1.goals_against
+            team_2.goals_for += team_2_goals
+            team_2.goals_against += team_1_goals
+            team_2.goals_difference = team_2.goals_for - team_2.goals_against
+            match.finished = True
+            team_1.save()
+            team_2.save()
+            match.save()
+        elif team_1_goals < team_2_goals:
+            # Team 2 wins
+            team_2.points += 3
+            team_2.wins += 1
+            team_1.losses += 1
+            team_2.goals_for += team_2_goals
+            team_2.goals_against += team_1_goals
+            team_2.goals_difference = team_2.goals_for - team_2.goals_against
+            team_1.goals_for += team_1_goals
+            team_1.goals_against += team_2_goals
+            team_1.goals_difference = team_1.goals_for - team_1.goals_against
+            match.finished = True
+            team_1.save()
+            team_2.save()
+            match.save()
+        elif team_1_goals == team_2_goals:
+            # Draw
+            team_1.points += 1
+            team_2.points += 1
+            team_1.draws += 1
+            team_2.draws += 1
+            team_1.goals_for += team_1_goals
+            team_1.goals_against += team_2_goals
+            team_1.goals_difference = team_1.goals_for - team_1.goals_against
+            team_2.goals_for += team_2_goals
+            team_2.goals_against += team_1_goals
+            team_2.goals_difference = team_2.goals_for - team_2.goals_against
+            match.finished = True
+            team_1.save()
+            team_2.save()
+            match.save()
+
+        return data

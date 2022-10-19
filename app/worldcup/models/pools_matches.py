@@ -22,7 +22,7 @@ class PoolMatch(models.Model):
     started = models.BooleanField(default=False, verbose_name='Match started')
     finished = models.BooleanField(default=False, verbose_name='Match finished')
     pool_match_points = models.IntegerField(default=0)
-
+    analized = models.BooleanField(default=False, verbose_name='Analized')
     def __str__(self):
         return f'{self.team_1} vs {self.team_2}'
 

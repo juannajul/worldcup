@@ -7,5 +7,4 @@ from worldcup.models.pools_matches import PoolMatch
 admin.site.register(Team)
 admin.site.register(WorldcupMatch)
 admin.site.register(WorldcupPool)
-
 admin.site.register(PoolMatch)

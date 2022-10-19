@@ -70,9 +70,18 @@ class UserViewSet(mixins.RetrieveModelMixin,
         }
         
         response = Response(data, status=status.HTTP_200_OK)
-        response.set_cookie(key='access_token', value=token, httponly=True)
+        response.set_cookie(key='access_token', value=token, httponly=True, samesite='None')
         print(data)
         return response
+
+    @action(detail=False, methods=['get'])
+    def logout(self, request):
+        """User log out."""
+        response = Response(status=status.HTTP_200_OK)
+        response.delete_cookie(key='access_token')
+        print("sesion cerrada")
+        return response
+
     
     
 

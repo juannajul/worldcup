@@ -14,7 +14,7 @@ class Team(models.Model):
     losses = models.IntegerField(default=0, verbose_name='team losses')
     goals_for = models.IntegerField(default=0, verbose_name='Goals for')
     goals_against = models.IntegerField(default=0, verbose_name='Goals against')
-    goal_difference = models.IntegerField(default=0 , verbose_name='Goal difference')
+    goals_difference = models.IntegerField(default=0 , verbose_name='Goal difference')
     first_place = models.BooleanField(default=False, verbose_name='First place')
     second_place = models.BooleanField(default=False, verbose_name='Second place')
 
@@ -23,4 +23,4 @@ class Team(models.Model):
 
     class Meta:
         verbose_name_plural = "Teams"
-        ordering = ["-points", "-goal_difference", "-goals_for"]
+        ordering = ["group" ,"-points", "team_code","-goals_difference", "-goals_for"]

@@ -18,7 +18,7 @@
         <header id="header" class="menu-fixed">
             <nav id="nav" class="menu-desplegable">
                 <div id="logo">
-                    <a href="">
+                    <a href="{% url 'qatar_2022:index' %}">
                         <img src="{% static 'img/Qatar2022.png' %}" alt="Qatar2022">
                     </a>
                 </div>
@@ -50,7 +50,7 @@
                 </ul>
                 <ul id="nav-menu-user">
                     <li>
-                        <a href="" title="user" id="user-icon" >
+                        <a href="{% url 'qatar_2022:profile' %}" title="user" id="user-icon" >
                             <img src="{% static 'img/user.png' %}" alt="user">
                         </a>
                     </li>

@@ -1,0 +1,221 @@
+@font-face{
+    font-family: RobotoLigth;
+    src: url(./fonts/Roboto-Light.ttf);
+}
+
+@font-face{
+    font-family: RobotoMedium;
+    src: url(./fonts/Roboto-Medium.ttf);
+}
+
+#profile-container-section{
+    width: 80%;
+    height: 90vh;
+    border: 0px solid red;
+}
+
+#profile-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border: 0px solid green;
+}
+
+#profile-logout-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#profile-logout-btn-container{
+    width: 110px;
+    margin: 25px;
+    height: 40px;
+    padding-top: 10px;
+    border: 1px solid #962037;
+    border-radius: 10px;
+    text-align: center;
+    background: #962037;
+    cursor: pointer;
+    transition: all 400ms ease;
+}
+
+#profile-logout-btn-container:hover{
+    background: #812034ce;
+}
+
+#profile-logout-title{
+    color: #ffffff;
+}
+
+#profile-username-container,
+#profile-credits-container{
+    width: auto;
+    margin: 50px 30px 10px 0px;
+    border: 0px solid blueviolet ;
+}
+
+#profile-credits-container{
+    width: auto;
+    margin: 0px 10px 20px 0px;
+    border: 0px solid blueviolet ;
+}
+
+#profile-username-title,
+#profile-credits-container{
+    font-family: RobotoMedium;
+    letter-spacing: 1px;
+    font-size: 18px;
+}
+
+#profile-pools-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 500px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    min-height: 200px;
+    border: 0px solid rgba(68, 67, 67, 0.747);
+    box-shadow: -1px 2px 10px rgba(82, 81, 81, 0.548);
+    border-radius: 20px;
+}
+
+#profile-pools-info-container{
+    width: 100%;
+    height: 40px;
+    background: #962037;
+    border-bottom: 1px solid rgba(68, 67, 67, 0.747);
+    border-radius: 18px 18px 0px 0px;
+}
+
+#profile-pools-info-title-container{
+    margin: 8px 0px 0px 15px;
+    
+}
+
+#profie-pools-info-title{
+    font-family: RobotoLight;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+#profile-user-pools-container{
+    width: 100%;
+    height: 200px;
+    margin-top: 8px;
+    border: 0px solid green;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.profile-user-pool-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(68, 67, 67, 0.747);
+}
+
+.profile-user-pool-container:hover {
+    background: #96203883;
+}
+
+.profile-user-pool-container-link{
+    color: #222222;
+}
+
+.profile-user-pool-number-container,
+.profile-user-pool-points-container{
+    width: 80px;
+}
+
+.profile-user-pool-user-container{
+    width: 150px;
+    margin-left: 10px;
+    text-align: center;
+}
+.profile-user-pool-number-title,
+.profile-user-pool-user-title,
+.profile-user-pool-points-title{
+    font-family: RobotoLight;
+    font-size: 17px;
+    letter-spacing: 0px;
+}
+
+#profile-pool-creation-btn-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+#profile-pool-creation-btn{
+    width: 150px;
+    height: 40px;
+    padding-top: 10px;
+    border: 1px solid #1a8865;
+    border-radius: 10px;
+    text-align: center;
+    background: #1a8865;
+    cursor: pointer;
+    transition: all 400ms ease;
+}
+
+#profile-pool-creation-btn:hover{
+    background: #0f553fde;
+}
+
+#profile-pool-creation-btn > #profile-pool-creation-btn-title{
+    color: #ffffff;
+    box-shadow: -8px 6px 15px rgba(82, 81, 81, 0.356);
+}
+
+@media (max-width: 615px){
+
+    #profile-container-section{
+        width: 95%;
+    }
+    
+}
+
+@media (max-width: 550px){
+
+    #profile-container-section{
+        width: 97%;
+    }
+    
+    #profile-pools-container{
+        width: 315px;
+    }
+
+    .profile-user-pool-number-container{
+        width: 10px;
+    }
+    .profile-user-pool-points-container {
+        width: 45px;
+    }
+
+    .profile-user-pool-user-container {
+        margin-left: 40px;
+    }
+
+    #profile-username-container, 
+    #profile-credits-container {
+    width: auto;
+    margin: 50px 5px 10px 0px;
+    border: 0px solid blueviolet;
+}
+
+}
