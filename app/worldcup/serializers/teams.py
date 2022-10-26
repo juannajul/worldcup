@@ -25,3 +25,13 @@ class CreateTeamModelSerializer(serializers.ModelSerializer):
             'team_code',
             )
         
+
+class SetTeamPlaceModelSerializer(serializers.ModelSerializer):
+    """Team model serializer."""
+    team = TeamModelSerializer(read_only=True)
+    first_place = serializers.BooleanField(required=True)
+    second_place = serializers.BooleanField(required=True)
+
+    class Meta:
+        model = Team
+        fields = ('first_place', 'second_place', 'team')

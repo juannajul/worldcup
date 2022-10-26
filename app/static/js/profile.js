@@ -7,15 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
         logout();
     });
     }
+    getUserCredits();
 });
 
 function setProfileUsername(){
     var user = JSON.parse(localStorage.getItem("user"));
     var username = user.username
-    const credits = document.querySelector('#profile-credits-title');
     var username = document.getElementById("profile-username-title");
     username.innerHTML = `Bievenido ${user.username}`;
-    credits.innerHTML = `${user.credits} Credits`;
     console.log(user)
 }
 
@@ -66,4 +65,34 @@ async function logout(){
 	}
     localStorage.clear();
     window.location.reload();
+}
+
+function blockCreatePoolBtn(credits){
+    const createPoolBtn = document.getElementById("profile-pool-creation-btn-link");
+    
+    if (credits <= 0 ){
+        createPoolBtn.style.display = "none";
+    } else {
+        createPoolBtn.style.display = "block";
+    }
+    
+}
+
+async function getUserCredits(){
+    var user = JSON.parse(localStorage.getItem("user"));
+    var username = user.username
+
+    const response = await fetch(
+        `/api/auth/users/${username}/`,
+        {method: 'GET',}
+    );
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data)
+    credits = data.credits
+    blockCreatePoolBtn(credits);
+    const creditsSel = document.querySelector('#profile-credits-title');
+    creditsSel.innerHTML = `${credits} Credits`;
 }

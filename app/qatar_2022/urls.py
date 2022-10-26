@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import IndexView, PoolMatchesView, LoginView, ProfileView, RetrievePoolView
+from .views import IndexView, PoolMatchesView, LoginView, ProfileView, RetrievePoolView, SignupView
 
 
 app_name = 'qatar_2022'
@@ -14,5 +14,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('retrieve_pool/<int:id>/', RetrievePoolView.as_view(), name='retrieve_pool'),
+    path('signup/', SignupView.as_view(), name='signup'),
     
 ]

@@ -14,7 +14,7 @@ from rest_framework.permissions import (
 #from cride.users.permissions import IsAccountOwner
 
 # Serializers 
-from users.serializers.users import UserSignUpModelSerializer, UserModelSerializer, UserLoginSerializer
+from users.serializers.users import UserSignUpModelSerializer, UserModelSerializer, UserLoginSerializer, RemoveCreditsSerializer
 
 # Models
 from users.models.users import User
@@ -82,49 +82,12 @@ class UserViewSet(mixins.RetrieveModelMixin,
         print("sesion cerrada")
         return response
 
-    
-    
-
-    
-    
-    """
-    @action(detail=False, methods=['post'])
-    def verify(self, request):
-        Account verification.
-        # Handle HTTP POST request.
-        serializer = AccountVerificationSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        data = {'message': 'Congratulations, now go some rides!'}
-        return Response(data, status=status.HTTP_200_OK)
-
-    @action(detail=True, methods = ['put', 'patch'])
-    def profile(self, request, *args, **kwargs):
-        Update profile data.
+    @action(detail=True, methods=['patch'])
+    def remove_credits(self, request, *args, **kwargs):
+        """Remove credits from user."""
         user = self.get_object()
-        profile = user.profile
-        partial = request.method == 'PATCH'
-        serializer = ProfileModelSerializer(
-            profile,
-            data=request.data,
-            partial=partial
-        )
+        serializer = RemoveCreditsSerializer(instance=user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         data = UserModelSerializer(user).data
-        return Response(data)
-
-    def retrieve(self, request, *args, **kwargs):
-        Add extra data to the response.
-        response = super(UserViewSet, self).retrieve(request, *args, **kwargs)
-        circles = Circle.objects.filter(
-            members = request.user,
-            membership__is_active=True
-        )
-        data = {
-            'user': response.data,
-            'circles': CircleModelSerializer(circles, many=True).data
-        }
-        response.data = data
-        return response
-        """
+        return Response(data, status=status.HTTP_200_OK)

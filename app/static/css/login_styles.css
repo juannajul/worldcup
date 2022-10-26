@@ -1,0 +1,173 @@
+#login-content{
+    width: 100%;
+    height: 100vh;
+}
+
+
+#login-banner-container {
+    width: 100%;
+    height: 900px;
+    margin: 0;
+    background-image: url("../img/mundial2014.png");
+    animation: banner 15s infinite linear alternate;
+    background-size: 100% 1050px;
+    background-position-y: -40px;
+    position: relative;
+}
+
+.capa {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.425);
+}
+
+.banner-content{
+    position: absolute;
+    z-index: 10;
+}
+
+#login-container-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    height: auto;
+    margin-top: 250px;
+    border: 0px solid white;
+}
+
+#login-title{
+    color: #ffffff;
+    text-align: center;
+}
+
+
+#login-error-msg-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+#login-error-msg{
+    color: #ffffff;
+    text-align: center;
+}
+
+
+#login-container-form{
+    margin-top: 5px;
+}
+
+#login-user-email, 
+#login-user-password{
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    padding: 10px;
+    border: 0px solid #962037;
+    border-radius: 10px;
+    box-shadow: -4px 1px 11px rgba(82, 81, 81, 0.356);
+    outline: none;
+    transition: all 100ms ease;
+}
+
+#login-user-email:focus, 
+#login-user-password:focus{
+    border: 2px solid #962038d8;
+}
+
+#user-login-btn{
+    margin-top: 15px;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #962037;
+    border: 0;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 300ms ease;
+}
+
+#user-login-btn:hover{
+    background: #7e1f32;
+}
+
+.register-link-container{
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#register-link{
+    color: #d3d3d3;
+    font-size: 14px;
+    transition: 300ms all ease;
+}
+
+#register-link:hover{
+    color: #ffffff;
+}
+
+
+@media (max-width: 1000px) {
+    #login-banner-container {
+        width: 100%;
+        height: 870px;
+        background-size: 100% 890px;
+        background-position-y: -1px;
+      }
+}
+
+@media (max-width: 1000px) {
+    #login-banner-container {
+        width: 100%;
+        height: 870px;
+        background-size: 100% 890px;
+        background-position-y: -1px;
+      }
+}
+
+@media (max-width: 600px) {
+    #login-banner-container {
+        width: 100%;
+        height: 100vh;
+        background-size: 252% 813px;
+        background-position-y: -1px;
+        background-position-x: -264px;
+}
+}
+
+@media (max-width: 900px) {
+    #login-banner-container {
+    width: 100%;
+    height: 100vh;
+    background-size: 200% 927px;
+    background-position-y: -1px;
+    background-position-x: -430px;
+      }
+}
+
+@media (max-width: 560px){
+#login-banner-container {
+  width: 100%;
+  height: 100vh;
+  background-size: 232% 927px;
+  background-position-y: -1px;
+  background-position-x: -327px;
+}}
+
+@media (max-width: 420px) {
+    #login-banner-container {
+        height: 730px;
+        background-size: 310% 749px;
+        background-position-y: -20px;
+        background-position-x: -379px;
+    }
+}
+
+

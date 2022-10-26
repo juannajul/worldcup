@@ -37,7 +37,7 @@ function showWorldcupMatches(data) {
             <div id="worldcup-match-container">
                 <form id="worldcup-match-form-${data[i].match_number}">
                     <div id="worldcup-match-number-container">
-                        <h4 class="worldcup-match-number-container-title">Match: ${data[i].match_number} - Group: ${data[i].group} - Round ${data[i].round}
+                        <h4 class="worldcup-match-number-container-title">Match: ${data[i].match_number} - Group: ${data[i].group} - Round ${data[i].round}</h4>
                     </div>
                     <label for="worldcup-match-number-${data[i].match_number}" id="worldcup-match-number-${data[i].match_number}" value="${data[i].match_number}" hidden>${data[i].match_number}</label>
                     <label for="worldcup-match-group-${data[i].match_number}" id="worldcup-match-group-${data[i].match_number}" value="${data[i].group}" hidden>${data[i].group}</label>
@@ -124,9 +124,29 @@ async function createPool(matchesNumberList){
         }
         const data = await response.json();
         console.log(data);
+        removeUserCredit();
         poolId = data.id;
         getMatchInformation(matchesNumberList, poolId);
+        
 
+}
+
+async function removeUserCredit(){
+    var user = JSON.parse(localStorage.getItem("user"));
+    var user_username = user.username ;
+    response = await fetch(
+        `/api/auth/users/${user_username}/remove_credits/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data);
 }
 
 async function createPoolMatches(matchData) {

@@ -4,37 +4,51 @@
 
 {% block body %}
    <section id="index-content">
-        <section id="profile-container-section">
-            <div id="profile-container">
-                <div id="profile-logout-container">
-                    <div id="profile-logout-btn-container">
-                        <h5 id="profile-logout-title">Cerrar Sesión</h4>
-                    </div>
-                </div>
-                <div id="profile-username-container">
-                    <h4 id="profile-username-title"></h4>
-                </div>
-                <div id="profile-pools-container">
-                    <div id="profile-pools-info-container">
-                        <div id="profile-pools-info-title-container">
-                            <h4 id="profie-pools-info-title">Quinielas</h4>
+        <div id="profile-banner-container">
+            <div class="capa"></div>
+            <div class="profile-content">
+                <section id="profile-container-section">
+                    <div id="profile-container">
+                        <div id="profile-logout-container">
+                            <div id="profile-logout-btn-container">
+                                <h5 id="profile-logout-title">Cerrar Sesión</h4>
+                            </div>
                         </div>
-                        <div id="profile-user-pools-container"></div>
-                    </div>
-                
-                </div>
-                <div id="profile-credits-container">
-                    <h4 id="profile-credits-title"></h4>
-                </div>
-                <div id="profile-pool-creation-btn-container">
-                    <a href="{% url 'qatar_2022:pool_matches' %}">
-                        <div id="profile-pool-creation-btn">
-                            <h4 id="profile-pool-creation-btn-title">Crear Quiniela</h4>
+                        <div id="profile-username-container">
+                            <h4 id="profile-username-title"></h4>
                         </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+                        <div id="profile-pools-container">
+                            <div id="profile-pools-info-container">
+                                <div id="profile-pools-info-title-container">
+                                    <h4 id="profie-pools-info-title">Quinielas</h4>
+                                </div>
+                                <div id="profile-user-pools-container"></div>
+                            </div>
+                        
+                        </div>
+                        <div id="profile-credits-container">
+                            <h4 id="profile-credits-title"></h4>
+                        </div>
+                        <div id="profile-pool-creation-btn-container">
+                            <a id="profile-pool-creation-btn-link" href="{% url 'qatar_2022:pool_matches' %}">
+                                <div id="profile-pool-creation-btn">
+                                    <h4 id="profile-pool-creation-btn-title">Crear Quiniela</h4>
+                                </div>
+                            </a>
+                            <a href="{% url 'qatar_2022:pool_matches' %}">
+                                <div id="profile-pool-credits-btn">
+                                    <h4 id="profile-pool-credits-btn-title">Adquirir Creditos</h4>
+                                </div>
+                            </a>
+
+                            <div id="credits-info-container">
+                                <label for="" id="credits-info-title">Debes adquirir creditos para crear tu quiniela</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div> 
+        </div>
    </section>
 {% endblock body %}
 

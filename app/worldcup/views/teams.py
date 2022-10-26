@@ -6,13 +6,13 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 # Serializers
-from worldcup.serializers.teams import TeamModelSerializer, CreateTeamModelSerializer
+from worldcup.serializers.teams import TeamModelSerializer, CreateTeamModelSerializer, SetTeamPlaceModelSerializer
 
 # Models 
 from worldcup.models.teams import Team
 
 # Permissions
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 
 class TeamViewSet(
     mixins.ListModelMixin,
@@ -33,15 +33,22 @@ class TeamViewSet(
             return CreateTeamModelSerializer
         return TeamModelSerializer
 
-    
     def get_permissions(self):
-        permissions = [IsAuthenticatedOrReadOnly]
+        permissions = []
+        if self.action in ['create', 'update', 'partial_update']:
+            permissions.append(IsAuthenticatedOrReadOnly)
+            permissions.append(IsAdminUser)
+        if self.action == ['team_by_group', 'set_team_place']:
+            permissions.append(IsAuthenticatedOrReadOnly)
         return [p() for p in permissions]
-
+    
     def get_queryset(self): 
         if self.action == 'team_by_group':
             print(self.kwargs)
             return Team.objects.filter(group=self.kwargs['group'])
+        if self.action == 'set_team_place':
+            print(self.kwargs)
+            return Team.objects.get(team_code=self.kwargs['group'])
         return Team.objects.all()
     
     @action(detail=True, methods=["get"])
@@ -50,4 +57,16 @@ class TeamViewSet(
         teams = self.get_queryset()
         serializer = TeamModelSerializer(teams, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["patch"])
+    def set_team_place(self, request, *args, **kwargs):
+        """Set team place."""
+        team = self.get_queryset()
+        serializer = SetTeamPlaceModelSerializer(instance=team, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        team = serializer.save()
+        data = SetTeamPlaceModelSerializer(team).data
+        return Response(data, status=status.HTTP_200_OK)
+
+
 

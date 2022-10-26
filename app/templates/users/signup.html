@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block body %}
+   <section id="signup-content">
+        <div id="signup-banner-container">
+            <div class="capa"></div>
+            <div class="banner-content">
+                <section id="signup-container-section">
+                    <div id="signup-container">
+                        <div id="signup-container-title">
+                            <h1 id="signup-title">Regístrate</h1>
+                        </div>
+
+                        <div id="signup-container-form">
+                                <div id="signup-error-msg-container">
+                                    <label id="signup-error-msg" for=""></label>
+                                </div>
+                                
+                                <div class="signup-input-container">
+                                    <input type="email" class="" id="signup-user-email" name="email" placeholder="Correo electrónico">
+                                </div>
+                                <div class="signup-input-container">
+                                    <input type="email" class="" id="signup-user-username" name="email" placeholder="Username">
+                                </div>
+                                <div class="">
+                                    
+                                    <input type="password" class="" id="signup-user-password" name="password" placeholder="Contraseña">
+                                </div>
+                                <div class="">
+                                    <input type="password" class="" id="signup-user-password-confirmation" name="password-confirmation" placeholder="Confirmación de contraseña">
+                                </div>
+                                <div class="">
+                                    <button id="user-signup-btn" type="submit" class="">Registrarte</button>
+                                </div>
+                                <div class="login-link-container">
+                                    <a href="{% url 'qatar_2022:login' %}" id="login-link">Iniciar sesión</a>
+                                </div>
+                        </div>
+                    </div>
+                </section>
+            </div> 
+        </div>
+    </section>
+{% endblock body %}
+
+{% block script %}
+    <link rel="stylesheet" href="{% static 'css/signup_styles.css' %}">
+    <script src="{% static '/js/users.js' %}"></script>
+{% endblock %}

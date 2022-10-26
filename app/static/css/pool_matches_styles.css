@@ -8,7 +8,8 @@
     src: url(./fonts/Roboto-Medium.ttf);
 }
 
-#worldcup-matches-container{
+#worldcup-matches-container,
+#worldcup-matches-container-live{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -19,21 +20,35 @@
     border: 0px solid green;
 }
 
-#worldcup-match-container{
+#worldcup-matches-container-live{
+    margin-top: 40px;
+    min-height: auto;
+}
+
+#worldcup-match-container,
+#worldcup-match-container-live{
     width: 300px;
     margin: 30px;
+    max-height: 136px;
     border: 0px solid #962038b7;
     background: #ffffff;
     border-radius: 10px;
     box-shadow: -8px 6px 15px rgba(82, 81, 81, 0.356);
 }
 
-#worldcup-match-number-container{
+
+#worldcup-match-number-container,
+#worldcup-match-number-container-live{
     background: #962037;
     height: 30px;
     border-bottom: 1px solid #962038b7;
     padding: 6px;
     border-radius: 10px 10px 0px 0px;
+}
+
+#worldcup-match-number-container-live{
+    background: #02b93d;
+    border-bottom: 1px solid #02b93d;
 }
 
 .worldcup-match-number-container-title{
@@ -90,10 +105,15 @@
     width: 100%;
 }
 
-.worldcup-match-date-container{
+.worldcup-match-date-container,
+.worldcup-match-date-container-live{
     border-top: 1px solid #962037;
     padding: 5px;
     padding-left: 12px;
+}
+
+.worldcup-match-date-container-live{
+    border-top: 1px solid #02b93d;
 }
 
 #worldcup-match-date-title{
@@ -137,6 +157,9 @@
 
     #worldcup-matches-container{
         width: 90%;;
+    }
+    #worldcup-matches-container-live{
+        min-height: 35vh;
     }
     
 }

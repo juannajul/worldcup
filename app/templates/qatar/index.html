@@ -10,9 +10,92 @@
          <div class="banner-content">
          </div> 
       </div>
+      {% if started_matches %}
+         <section id="index-started-matches-section">
+            <div id="worldcup-matches-container-live">
+               {% for match in started_matches %}
+                     <div id="worldcup-match-container-live">
+                        <form id="worldcup-match-form-">
+                           <div id="worldcup-match-number-container-live">
+                              <h4 class="worldcup-match-number-container-title">Match: {{match.match_number}} - Group: {{match.group}} - Round {{match.round}}</h4>
+                           </div>
+                           <div id="worldcup-match-team_1">
+                              <label id="worldcup-match-team_1-code-{{match.match_number}}" class="worldcup-match-team_1-code" for="worldcup-match-team_1-code">{{match.team_1.team_code}}</label>
+                              <div class="worldcup-match-team-flag">
+                                    <img src="{{match.team_1.flag_image}}" alt="">
+                              </div>
+                              <div id="worldcup-match-team_1-name">
+                                    <h4 id="worldcup-match-team_1-name-title">{{match.team_1.country}}</h4>
+                              </div>
+                              <div id="worldcup-match-team_1-goals-container">
+                                    <input type="" id="worldcup-match-team_1-goals-{{match.match_number}}" class="worldcup-match-team_1-goals" name="worldcup-match-team_1-goals" min="0" value="{{match.team_1_goals}}" disabled>
+                              </div>   
+                           </div>
+                           <div id="worldcup-match-team_2">
+                              <label id="worldcup-match-team_2-code-{{match.match_number}}" class="worldcup-match-team_2-code" for="worldcup-match-team_2-code">{{match.team_2.team_code}}</label>
+                              <div class="worldcup-match-team-flag">
+                                    <img src="{{match.team_2.flag_image}}" alt="">
+                              </div>
+                              <div id="worldcup-match-team_2-name">
+                                    <h4 id="worldcup-match-team_2-name-title">{{match.team_2.country}}</h4>
+                              </div>
+                              <div id="worldcup-match-team_2-goals-container">
+                                    <input type="" id="worldcup-match-team_2-goals-{{match.match_number}}" class="worldcup-match-team_2-goals" name="worldcup-match-team_2-goals" min="0" value="{{match.team_2_goals}}" disabled>
+                              </div> 
+                           </div>
+                           <div class="worldcup-match-date-container-live" id="worldcup-match-date-container-{{match.match_number}}">
+                              <h4 id="worldcup-match-date-title">Now</h4>
+                           </div>
+                        </form>
+                     </div>
+               {% endfor %}
+            </div>
+         </section>
+      {% endif %}
+
+      <section id="index-teams-groups-section">
+         {% for group in groups %}
+            <div id="team-group-container_{{group}}" class="team-group-container">
+               <div id="worldcup-group-container">
+                  <h4 class="worldcup-group-container-title">Group {{group}}</h4>
+                  <label class="index-worldcup-groups" for="" hidden>{{group}}</label>
+              </div>
+              <div id="worldcup-group-data-container">
+                  <div id="worldcup-group-data-team-container">
+                     <h4 class="worldcup-group-data-stats-team-title">Team</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">G</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">E</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">P</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">GF</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">GA</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">GD</h4>
+                  </div>
+                  <div class="worldcup-group-data-stats-container">
+                     <h4 class="worldcup-group-data-stats-title">Pts</h4>
+                  </div>
+                  <div id="worldcup-group-teams-container_{{group}}" class="worldcup-group-teams-country-container"></div>
+              </div>
+            </div>
+         {% endfor %}
+         
+      </section>
    </section>
 {% endblock body %}
 
 {% block script %}
    <link rel="stylesheet" href="{% static 'css/index_styles.css' %}">
+   <link rel="stylesheet" href="{% static 'css/pool_matches_styles.css' %}">
+   <script src="{% static '/js/group_teams.js' %}"></script>
 {% endblock %}
