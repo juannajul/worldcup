@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block body %}
+   <section id="manage-matches-content">
+    <div id="worldcup-manage-matches-container">
+        <div id="worldcup-manage-info-matches-title-container">
+            <h4 id="worldcup-manage-info-matches-title">Partidos Grupos</h4>
+        </div>  
+        <div id="worldcup-manage-start-match-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-start-match-title" class="worldcup-manage-match-title">Iniciar Partido</h4>
+            <input id="worldcup-manage-start-match-input" class="worldcup-manage-match-input" type="text">
+            <div id="worldcup-manage-start-match-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-start-match-btn-title" class="worldcup-manage-match-btn-title">Start</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-finish-match-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-finish-match-title" class="worldcup-manage-match-title">Finalizar Partido</h4>
+            <input id="worldcup-manage-finish-match-input" class="worldcup-manage-match-input" type="text">
+            <div id="worldcup-manage-finish-match-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-finish-match-btn-title" class="worldcup-manage-match-btn-title">Finish</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-points-group-match-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-points-group-match-title" class="worldcup-manage-match-title">Puntos Partidos de Grupos</h4>
+            <div id="worldcup-manage-points-group-match-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-poinst-group-match-btn-title" class="worldcup-manage-match-btn-title">Analizar</h4>
+            </div>
+        </div>
+    </div>
+
+    <div id="worldcup-manage-matches-container">
+        <div id="worldcup-manage-info-matches-title-container">
+            <h4 id="worldcup-manage-info-matches-title">Partidos Llaves</h4>
+        </div>  
+        <div id="worldcup-manage-create-key-matches-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-create-key-matches-title" class="worldcup-manage-match-title">Crear llaves Octavos</h4>
+            <div id="worldcup-manage-create-roundOf16-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-start-match-btn-title" class="worldcup-manage-match-btn-title">Create</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-create-roundOf8-key-matches-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-create-roundOf8-key-matches-title" class="worldcup-manage-match-title">Crear llaves Cuartos</h4>
+            <div id="worldcup-manage-create-roundOf8-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-start-match-btn-title" class="worldcup-manage-match-btn-title">Create</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-create-semifinal-key-matches-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-create-semifinal-key-matches-title" class="worldcup-manage-match-title">Crear llaves Semifinal</h4>
+            <div id="worldcup-manage-create-semifinal-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-start-match-btn-title" class="worldcup-manage-match-btn-title">Create</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-create-final-key-matches-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-create-final-key-matches-title" class="worldcup-manage-match-title">Crear llaves Final</h4>
+            <div id="worldcup-manage-create-final-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-start-match-btn-title" class="worldcup-manage-match-btn-title">Create</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-start-key-match-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-start-key-match-title" class="worldcup-manage-match-title">Iniciar Partido</h4>
+            <input id="worldcup-manage-start-key-match-input" class="worldcup-manage-match-input" type="text">
+            <div id="worldcup-manage-start-key-match-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-start-key-match-btn-title" class="worldcup-manage-match-btn-title">Start</h4>
+            </div>
+        </div>
+        <div id="worldcup-manage-finish-key-match-container" class="worldcup-manage-match-container">
+            <h4 id="worldcup-manage-finish-key-match-title" class="worldcup-manage-match-title">Finalizar Partido</h4>
+            <input id="worldcup-manage-finish-key-match-input" class="worldcup-manage-match-input" type="text">
+            <div id="worldcup-manage-finish-key-match-btn" class="worldcup-manage-match-btn">
+                <h4 id="worldcup-manage-finish-key-match-btn-title" class="worldcup-manage-match-btn-title">Finish</h4>
+            </div>
+        </div>
+    </div>
+
+    <div id="worldcup-manage-info-matches-container">
+        <div id="worldcup-manage-info-matches-title-container">
+                <h4 id="worldcup-manage-info-matches-title">Partidos Jugados</h4>
+        </div>
+        <div id="worldcup-manage-info-matches-played">
+            
+        </div>
+    </div>
+
+    <div id="worldcup-manage-info-matches-container">
+        <div id="worldcup-manage-info-matches-title-container">
+                <h4 id="worldcup-manage-info-matches-title">Partidos Analizados</h4>
+            </div>
+        <div id="worldcup-manage-info-matches-analized">
+            
+        </div>
+    </div>
+   </section>
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static '/js/manage_matches.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/manage_matches_styles.css' %}">
+{% endblock %}

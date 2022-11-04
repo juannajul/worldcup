@@ -21,8 +21,8 @@ async function getGroupTeams() {
         //show Group Teams
         let group = groups[i];
         console.log(group);
-        const groupTeamstable = document.getElementById(`worldcup-group-teams-container_${group}`);
-        groupTeamstable.innerHTML = teams.map(team => {
+        const groupTeamsTable = document.getElementById(`worldcup-group-teams-container_${group}`);
+        groupTeamsTable.innerHTML = teams.map(team => {
             return `
             <div id="worldcup-group-data-container">
             <div class="worldcup-group-data-team-flag">

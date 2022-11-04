@@ -65,4 +65,5 @@ class PoolMatchViewSet(
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = PoolMatchModelSerializer(pool_matches, many=True).data
+        return Response(data, status=status.HTTP_200_OK)

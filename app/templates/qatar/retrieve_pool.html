@@ -4,12 +4,18 @@
 
 {% block body %}
    <section id="pool-matches-content">
+    {{group_round_finished}}
+    {% if group_round_finished == False %}
+        <div id="worldcup-save-pool-matches-btn" class="worldcup-save-pool-matches-btn">
+            <h4 id="worldcup-save-pool-matches-btn-title">LLaves</h4>
+        </div>
+        {% endif %}
     <div id="worldcup-matches-container"></div>
-    <div id="worldcup-save-pool-matches-btn-container">
+    <!--<div id="worldcup-save-pool-matches-btn-container">
         <div id="worldcup-save-pool-matches-btn" class="worldcup-save-pool-matches-btn">
             <h4 id="worldcup-save-pool-matches-btn-title">Finalizar</h4>
         </div>
-    </div>
+    </div>-->
    </section>
 {% endblock body %}
 

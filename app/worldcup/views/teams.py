@@ -46,9 +46,9 @@ class TeamViewSet(
         if self.action == 'team_by_group':
             print(self.kwargs)
             return Team.objects.filter(group=self.kwargs['group'])
-        if self.action == 'set_team_place':
+        if self.action == 'set_group_places':
             print(self.kwargs)
-            return Team.objects.get(team_code=self.kwargs['group'])
+            return Team.objects.filter(group=self.kwargs['group'])
         return Team.objects.all()
     
     @action(detail=True, methods=["get"])
@@ -59,14 +59,14 @@ class TeamViewSet(
         return Response(serializer, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["patch"])
-    def set_team_place(self, request, *args, **kwargs):
+    def set_group_places(self, request, *args, **kwargs):
         """Set team place."""
-        team = self.get_queryset()
-        serializer = SetTeamPlaceModelSerializer(instance=team, data=request.data, partial=True)
+        group = self.get_queryset()
+        serializer = SetTeamPlaceModelSerializer(instance=group, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        team = serializer.save()
-        data = SetTeamPlaceModelSerializer(team).data
-        return Response(data, status=status.HTTP_200_OK)
+        serializer.save()
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 

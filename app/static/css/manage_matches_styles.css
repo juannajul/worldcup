@@ -1,0 +1,117 @@
+
+@font-face{
+    font-family: RobotoLigth;
+    src: url(./fonts/Roboto-Light.ttf);
+}
+
+#manage-matches-content{
+    width: 100%;
+    margin: 0;
+    height: auto;
+}
+
+#worldcup-manage-matches-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 95%;
+    height: auto;
+    margin-top: 30px;
+    border: 1px solid blueviolet;
+}
+
+.worldcup-manage-match-container{
+    width: 185px;
+    height: 120px;
+    margin: 10px;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: -4px 5px 10px rgba(82, 81, 81, 0.356);
+    text-align: center;
+    padding: 15px;
+}
+
+.worldcup-manage-match-input{
+    margin-top: 10px;
+    outline: none;
+}
+
+.worldcup-manage-match-btn{
+    width: 55px;
+    height: 30px;
+    margin-top: 10px;
+    background-color: #23476b;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.worldcup-manage-match-btn-title{
+    color: #ffffff;
+    padding-top: 5px;
+    font-family: RobotoLigth;
+    font-size: 15px;
+}
+
+.worldcup-manage-match-btn:hover{
+    background: #2c5783;
+}
+
+#worldcup-manage-finish-match-btn{
+    background: #962037;
+}
+
+#worldcup-manage-finish-match-btn:hover{
+    background: #75192c;
+}
+
+#worldcup-manage-points-group-match-btn{
+    width: 65px;
+    margin-top: 20px;
+}
+
+#worldcup-manage-info-matches-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 95%;
+    height: auto;
+    margin-top: 30px;
+    border: 1px solid blueviolet;
+}
+
+#worldcup-manage-info-matches-title-container{
+    width: 95%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#worldcup-manage-info-matches-title{
+    font-size: 19px;
+    color: #962037;
+}
+
+#worldcup-manage-info-matches-played,
+#worldcup-manage-info-matches-analized{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.worldcup-manage-info-match-played-container,
+.worldcup-manage-info-match-analized-container{
+    width: auto;
+}
+
+.worldcup-manage-info-match-played-info,
+.worldcup-manage-info-match-analized-info{
+    font-family:  RobotoLigth;
+    font-size: 15px;
+}

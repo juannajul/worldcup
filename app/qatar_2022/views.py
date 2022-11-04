@@ -5,6 +5,8 @@ from users.permissions.user_authentication import user_login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from worldcup.models.worldcup_matches import WorldcupMatch
+
 
 class IndexView(TemplateView):
     template_name = '../templates/qatar/index.html'
@@ -34,3 +36,21 @@ class ProfileView(TemplateView):
 @method_decorator(user_login_required, name='dispatch')
 class RetrievePoolView(TemplateView):
     template_name = '../templates/qatar/retrieve_pool.html'
+
+    def get_context_data(self, **kwargs):
+        """Add user and profile to context."""
+        context = super().get_context_data(**kwargs)
+        group_round_finished = False
+        last_match = WorldcupMatch.objects.get(match_number=48)
+        print(last_match)
+        print("hola")
+        if last_match.finished:
+            group_round_finished = True
+            context['group_round_finished'] = group_round_finished
+        else:
+            context['group_round_finished'] = group_round_finished
+        return context
+
+@method_decorator(user_login_required, name='dispatch')
+class ManageMatchesView(TemplateView):
+    template_name = '../templates/qatar/manage_matches.html'

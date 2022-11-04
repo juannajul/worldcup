@@ -16,6 +16,7 @@ class WorldcupMatch(models.Model):
     group = models.CharField(max_length=12, blank=False, null=False, verbose_name='Group')
     started = models.BooleanField(default=False, verbose_name='Match started')
     finished = models.BooleanField(default=False, verbose_name='Match finished')
+    analized = models.BooleanField(default=False, verbose_name='worldcup match Analized')
 
     def __str__(self):
         return f'{self.team_1} vs {self.team_2}'

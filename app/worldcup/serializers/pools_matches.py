@@ -1,6 +1,7 @@
 """Pools matches serializers."""
 
 # Django rest framework
+from multiprocessing import context
 from rest_framework import serializers
 
 # Models
@@ -57,47 +58,55 @@ class SetPoolMatchPointsModelSerializer(serializers.Serializer):
     
     def update(self, instance , data):
         """Set pool match points."""
-        for pool_match in instance:
-            pool = WorldcupPool.objects.get(id=pool_match.pool.id)
-            match_number = pool_match.match_number
-            pool_match_points = 0
-            worldcup_match = WorldcupMatch.objects.get(match_number=match_number)
-            pool_team_1_goals = pool_match.team_1_goals
-            pool_team_2_goals = pool_match.team_2_goals
-            worldcup_team_1_goals = worldcup_match.team_1_goals
-            worldcup_team_2_goals = worldcup_match.team_2_goals
-            
-            if pool_team_1_goals > pool_team_2_goals and worldcup_team_1_goals > worldcup_team_2_goals:
-                # Team 1 wins
-                pool_match_points = 3
+        print(self.data)
+        if len(instance) <= 0:
+            raise serializers.ValidationError('There are not matches to set points.')
+        else:
+            for pool_match in instance:
+                pool = WorldcupPool.objects.get(id=pool_match.pool.id)
+                match_number = pool_match.match_number
+                pool_match_points = 0
+                worldcup_match = WorldcupMatch.objects.get(match_number=match_number)
+                pool_team_1_goals = pool_match.team_1_goals
+                pool_team_2_goals = pool_match.team_2_goals
+                worldcup_team_1_goals = worldcup_match.team_1_goals
+                worldcup_team_2_goals = worldcup_match.team_2_goals
                 
-                if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
-                    # Exact result
-                    pool_match_points = 5
-            elif pool_team_1_goals < pool_team_2_goals and worldcup_team_1_goals < worldcup_team_2_goals:
-                # Team 2 wins
-                pool_match_points = 3
-                
-                if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
-                    # Exact result
-                    pool_match_points = 5
-            elif pool_team_1_goals == pool_team_2_goals and worldcup_team_1_goals == worldcup_team_2_goals:
-                # Draw
-                pool_match_points = 3
-                
-                if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
-                    # Exact result
-                    pool_match_points = 5
+                if pool_team_1_goals > pool_team_2_goals and worldcup_team_1_goals > worldcup_team_2_goals:
+                    # Team 1 wins
+                    pool_match_points = 3
+                    
+                    if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
+                        # Exact result
+                        pool_match_points = 5
+                elif pool_team_1_goals < pool_team_2_goals and worldcup_team_1_goals < worldcup_team_2_goals:
+                    # Team 2 wins
+                    pool_match_points = 3
+                    
+                    if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
+                        # Exact result
+                        pool_match_points = 5
+                elif pool_team_1_goals == pool_team_2_goals and worldcup_team_1_goals == worldcup_team_2_goals:
+                    # Draw
+                    pool_match_points = 3
+                    
+                    if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
+                        # Exact result
+                        pool_match_points = 5
 
-            # Pool
-            print(pool_match_points)
-            pool.points += pool_match_points
-            pool.save()
+                # Pool
+                print(pool_match_points)
+                pool.points += pool_match_points
+                pool.save()
 
-            # Pool match
-            pool_match.pool_match_points = pool_match_points
-            pool_match.analized = True
-            pool_match.save()
+                # Pool match
+                pool_match.pool_match_points = pool_match_points
+                pool_match.analized = True
+                pool_match.save()
+
+                # Worldcup match
+                worldcup_match.analized = True
+                worldcup_match.save()
 
         return instance
     

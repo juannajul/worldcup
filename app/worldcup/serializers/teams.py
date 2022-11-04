@@ -26,12 +26,27 @@ class CreateTeamModelSerializer(serializers.ModelSerializer):
             )
         
 
-class SetTeamPlaceModelSerializer(serializers.ModelSerializer):
-    """Team model serializer."""
-    team = TeamModelSerializer(read_only=True)
-    first_place = serializers.BooleanField(required=True)
-    second_place = serializers.BooleanField(required=True)
+class SetTeamPlaceModelSerializer(serializers.Serializer):
+    """Set Team  place serializer."""
 
-    class Meta:
-        model = Team
-        fields = ('first_place', 'second_place', 'team')
+    def update(self, instance, data):
+        """Update team place."""
+        group = instance
+        team_first_place = group[0]
+        team_second_place = group[1]
+        team_third_place = group[2]
+        team_fourth_place = group[3]
+        team_first_place.first_place = True
+        team_first_place.second_place = False
+        team_first_place.save()
+        team_second_place.first_place = False
+        team_second_place.second_place = True
+        team_second_place.save()
+        team_third_place.first_place = False
+        team_third_place.second_place = False
+        team_third_place.save()
+        team_fourth_place.first_place = False
+        team_fourth_place.second_place = False
+        team_fourth_place.save()
+        
+        return group

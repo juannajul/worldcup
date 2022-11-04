@@ -50,6 +50,10 @@ class WorldcupMatchViewSet(
             return WorldcupMatch.objects.get(match_number=self.kwargs['match_number'])
         if self.action == 'get_started_matches':
             return WorldcupMatch.objects.filter(started=True, finished=False)
+        if self.action == 'get_played_matches':
+            return WorldcupMatch.objects.filter(started=True, finished=True)
+        if self.action == 'get_analized_matches':
+            return WorldcupMatch.objects.filter(analized=True)
         return WorldcupMatch.objects.all()
 
 
@@ -70,9 +74,23 @@ class WorldcupMatchViewSet(
         serializer = WorldcupMatchModelSerializer(matches, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)
 
+    @action(detail=False, methods=["get"])
+    def get_played_matches(self, request, *args, **kwargs):
+        """Get started matches."""
+        matches = self.get_queryset()
+        serializer = WorldcupMatchModelSerializer(matches, many=True).data
+        return Response(serializer, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=["get"])
+    def get_analized_matches(self, request, *args, **kwargs):
+        """Get started matches."""
+        matches = self.get_queryset()
+        serializer = WorldcupMatchModelSerializer(matches, many=True).data
+        return Response(serializer, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=["patch"])
     def finish_match(self, request, *args, **kwargs):
-        """Set pool match points."""
+        """Finish match and set teams points."""
         match = self.get_queryset()
         serializer = FinishMatchModelSerializer(
             instance=match,
