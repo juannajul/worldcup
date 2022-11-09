@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block body %}
+   <section id="pool-key-matches-content">
+    <div id="worldcup-key-matches-container"></div>
+    <div id="worldcup-save-pool-key-matches-btn-container">
+        <div id="worldcup-save-pool-key-matches-btn" class="worldcup-save-pool-matches-btn">
+            <h4 id="worldcup-save-pool-key-matches-btn-title">Guardar</h4>
+        </div>
+    </div>
+   </section>
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static '/js/pool_key_matches.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/pool_key_matches_styles.css' %}">
+{% endblock %}

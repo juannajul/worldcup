@@ -8,6 +8,9 @@ from users.models.users import User
 class WorldcupPool(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pool_user', verbose_name='User')
     points = models.IntegerField(default=0, verbose_name='Pool Points')
+    round_group_points = models.IntegerField(default=0, verbose_name='Group Points')
+    round_key_points = models.IntegerField(default=0, verbose_name='Key Points')
+    group_points = models.IntegerField(default=0, verbose_name='Group Points')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated = models.DateTimeField(auto_now=True, verbose_name='Updated')
 

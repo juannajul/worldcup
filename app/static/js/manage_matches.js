@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const createFinalBtn = document.querySelector('#worldcup-manage-create-final-btn');
     createFinalBtn.addEventListener('click', createFinal);
 
+    const setPoolKeyMatchesPointsBtn = document.querySelector('#worldcup-manage-points-key-match-btn');
+    setPoolKeyMatchesPointsBtn.addEventListener('click', setPoolKeyMatchesPoints);
+
     matchesPlayed();
     keyMatchesPlayed();
     matchesAnalized();
@@ -298,3 +301,18 @@ async function createFinalKeys(match_number){
         console.log(response);
 }
 
+async function setPoolKeyMatchesPoints(){
+    const response = await fetch(`/api/worldcup/pool_key_matches/set_pool_key_match_points/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        console.log(response);
+}

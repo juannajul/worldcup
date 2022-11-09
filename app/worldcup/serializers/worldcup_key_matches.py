@@ -9,6 +9,7 @@ from rest_framework import serializers
 from worldcup.models.worldcup_key_matches import WorldcupKeyMatch
 from worldcup.models.teams import Team
 from worldcup.models.pools_matches import PoolMatch
+from worldcup.models.pools_key_matches import PoolKeyMatch
 
 # Serializers
 from worldcup.serializers.teams import TeamModelSerializer
@@ -170,7 +171,7 @@ class CreateRoundOf16KeyMatchModelSerializer(serializers.ModelSerializer):
         return data
 
 
-class CreateRoundOf8KeyMatchModelSerializer(serializers.ModelSerializer):
+class CreateQuarterFinalsKeyMatchModelSerializer(serializers.ModelSerializer):
     """Create round of 16 serializer."""
     match_number = serializers.IntegerField()
 
@@ -197,7 +198,7 @@ class CreateRoundOf8KeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-09 11:00:00'
-            round = 'Round of 8'
+            round = 'Quarter-finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -209,7 +210,7 @@ class CreateRoundOf8KeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-09 15:00:00'
-            round = 'Round of 8'
+            round = 'Quarter-finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -221,7 +222,7 @@ class CreateRoundOf8KeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-10 11:00:00'
-            round = 'Round of 8'
+            round = 'Quarter-finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -233,7 +234,7 @@ class CreateRoundOf8KeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-10 15:00:00'
-            round = 'Round of 8'
+            round = 'Quarter Finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -269,7 +270,7 @@ class CreateSemifinalKeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_8_match_1.team_winner
             team_2 = round_of_8_match_2.team_winner
             match_date = '2022-12-09 11:00:00'
-            round = 'Semifinal'
+            round = 'Semi-finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -281,7 +282,7 @@ class CreateSemifinalKeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-09 15:00:00'
-            round = 'Semifinal'
+            round = 'Semi-inals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -393,7 +394,7 @@ class FinishKeyMatchModelSerializer(serializers.Serializer):
                 elif team_1_penalty_goals == team_2_penalty_goals:
                     raise serializers.ValidationError('Draw not allowed')
             
-            pool_matches = PoolMatch.objects.filter(match_number=match_number)
+            pool_matches = PoolKeyMatch.objects.filter(match_number=match_number)
             for pool_match in pool_matches:
                 pool_match.finished = True
                 pool_match.save() 

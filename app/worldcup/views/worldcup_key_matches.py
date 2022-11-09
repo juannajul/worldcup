@@ -4,11 +4,12 @@
 from rest_framework import mixins, viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 # Serializers
 from worldcup.serializers.worldcup_key_matches import (WorldcupKeyMatchModelSerializer, CreateWorldcupKeyMatchModelSerializer, 
     StartKeyMatchModelSerializer, CreateRoundOf16KeyMatchModelSerializer,
-    FinishKeyMatchModelSerializer, CreateRoundOf8KeyMatchModelSerializer,
+    FinishKeyMatchModelSerializer, CreateQuarterFinalsKeyMatchModelSerializer,
     CreateSemifinalKeyMatchModelSerializer, CreateFinalKeyMatchModelSerializer)
 
 # Models 
@@ -29,6 +30,8 @@ class WorldcupKeyMatchViewSet(
 
     queryset = WorldcupKeyMatch.objects.all()
     lookup_field = 'match_number'
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('round',)
 
     def get_serializer_class(self):
         """Return serializer based on actions"""
@@ -37,7 +40,7 @@ class WorldcupKeyMatchViewSet(
         if self.action == 'create_key_matches_roundOf16':
             return CreateRoundOf16KeyMatchModelSerializer
         if self.action == 'create_key_matches_roundOf8':
-            return CreateRoundOf8KeyMatchModelSerializer
+            return CreateQuarterFinalsKeyMatchModelSerializer
         if self.action == 'create_key_matches_semifinal':
             return CreateSemifinalKeyMatchModelSerializer
         if self.action == 'create_key_matches_final':
@@ -67,7 +70,16 @@ class WorldcupKeyMatchViewSet(
             return WorldcupKeyMatch.objects.filter(started=True, finished=False)
         if self.action == 'get_played_matches':
             return WorldcupKeyMatch.objects.filter(started=True, finished=True)
+        if self.action == 'get_matches_by_round':
+            print(self.kwargs)
+            return WorldcupKeyMatch.objects.filter(round=self.kwargs['match_number'])
         return WorldcupKeyMatch.objects.all()
+
+    @action(detail=True, methods=['get'])
+    def get_matches_by_round(self, request, *args, **kwargs):
+        matches = self.get_queryset()
+        serializer = WorldcupKeyMatchModelSerializer(matches, many=True).data
+        return Response(serializer, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["post"])
     def create_key_matches_roundOf16(self, request, *args, **kwargs):
@@ -79,7 +91,7 @@ class WorldcupKeyMatchViewSet(
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=False, methods=["post"])
-    def create_key_matches_roundOf8(self, request, *args, **kwargs):
+    def create_key_matches_quarter_finals(self, request, *args, **kwargs):
         """Create key matches"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

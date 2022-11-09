@@ -42,14 +42,18 @@ class RetrievePoolView(TemplateView):
         context = super().get_context_data(**kwargs)
         group_round_finished = False
         last_match = WorldcupMatch.objects.get(match_number=48)
-        print(last_match)
-        print("hola")
         if last_match.finished:
             group_round_finished = True
             context['group_round_finished'] = group_round_finished
         else:
             context['group_round_finished'] = group_round_finished
         return context
+
+@method_decorator(user_login_required, name='dispatch')
+class RetrievePoolKeyView(TemplateView):
+    template_name = '../templates/qatar/pool_key_matches.html'
+
+    
 
 @method_decorator(user_login_required, name='dispatch')
 class ManageMatchesView(TemplateView):

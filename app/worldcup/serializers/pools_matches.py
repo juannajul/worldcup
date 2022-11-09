@@ -97,6 +97,7 @@ class SetPoolMatchPointsModelSerializer(serializers.Serializer):
                 # Pool
                 print(pool_match_points)
                 pool.points += pool_match_points
+                pool.round_group_points += pool_match_points
                 pool.save()
 
                 # Pool match

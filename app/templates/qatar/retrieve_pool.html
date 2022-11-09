@@ -8,8 +8,15 @@
         <div id="worldcup-key-pool-matches-btn" class="worldcup-key-pool-matches-btn">
             <h4 id="worldcup-save-pool-matches-btn-title">LLaves</h4>
         </div>
-        {% endif %}
+    {% endif %}
     <div id="worldcup-matches-container"></div>
+    {% if group_round_finished == False %}
+        <div id="key-round-title-container">
+            <h4 id="key-round-title">Fase de llaves</h4>
+        </div>
+    {% endif %}
+    
+    <div id="worldcup-key-matches-container"></div>
     <!--<div id="worldcup-save-pool-matches-btn-container">
         <div id="worldcup-save-pool-matches-btn" class="worldcup-save-pool-matches-btn">
             <h4 id="worldcup-save-pool-matches-btn-title">Finalizar</h4>
@@ -20,5 +27,6 @@
 
 {% block script %}
     <script src="{% static '/js/retrieve_pool.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/pool_key_matches_styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/pool_matches_styles.css' %}">
 {% endblock %}
