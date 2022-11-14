@@ -61,13 +61,13 @@ class RetrievePoolView(TemplateView):
             context['group_round_finished'] = group_round_finished
         groups = ["A", "B", "C", "D", "E", "F", "G", "H"]
         context['groups'] = groups
-        pool_id = self.kwargs['id']
+        """ pool_id = self.kwargs['id']
         pool = WorldcupPool.objects.get(pk=pool_id)
         group_round_finished = pool.group_analized
         if group_round_finished == False:
             token = 'Token ac035ea97f8471496bf749184f1ed5e85b4ff768'
             headers = {'Authorization': token}
-            r = requests.patch(f'http://127.0.0.1:8000/api/worldcup/pool_group_teams/{pool_id}/analize_pool_group_matches/', headers=headers)
+            r = requests.patch(f'http://127.0.0.1:8000/api/worldcup/pool_group_teams/{pool_id}/analize_pool_group_matches/', headers=headers)"""
         return context
 
 #@method_decorator(user_login_required, name='dispatch')
