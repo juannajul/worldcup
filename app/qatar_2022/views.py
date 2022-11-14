@@ -49,7 +49,8 @@ class RetrievePoolView(TemplateView):
         """Add user and profile to context."""
         context = super().get_context_data(**kwargs)
         group_round_finished = False
-        last_match = WorldcupMatch.objects.get(match_number=48)
+        context['group_round_finished'] = group_round_finished
+        """last_match = WorldcupMatch.objects.get(match_number=48)
         first_key_match = WorldcupKeyMatch.objects.get(match_number=49)
         if last_match.finished:
             group_round_finished = True
@@ -58,7 +59,7 @@ class RetrievePoolView(TemplateView):
             context['group_round_finished'] = group_round_finished
         if first_key_match.started:
             group_round_finished = False
-            context['group_round_finished'] = group_round_finished
+            context['group_round_finished'] = group_round_finished"""
         groups = ["A", "B", "C", "D", "E", "F", "G", "H"]
         context['groups'] = groups
         """ pool_id = self.kwargs['id']
