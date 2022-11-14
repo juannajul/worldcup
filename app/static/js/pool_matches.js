@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createPoolMatchesButton.style.display = 'none';
     window.setTimeout(()=>{
         window.location.href = `/worldcup/qatar/profile/`;
-    }, 2000)
+    }, 3000)
     
   });
   
@@ -131,7 +131,27 @@ async function createPool(matchesNumberList){
         removeUserCredit();
         poolId = data.id;
         getMatchInformation(matchesNumberList, poolId);
-        //await teamGroupPointsMatches(poolId);
+        await teamGroupPointsMatches(poolId);
+}
+
+async function teamGroupPointsMatches(poolId){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
+    response = await fetch(
+        `/api/worldcup/pool_group_teams/${poolId}/analize_pool_group_matches/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify({
+           
+        })
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 }
 
 async function removeUserCredit(){

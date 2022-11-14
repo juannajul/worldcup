@@ -78,6 +78,15 @@ class RetrievePoolKeyView(TemplateView):
 class RankingsView(TemplateView):
     template_name = '../templates/qatar/rankings.html'
 
+    def get_context_data(self, **kwargs):
+        """Add user and profile to context."""
+        context = super().get_context_data(**kwargs)
+        worldcup_started = False
+        context['worldcup_started'] = worldcup_started
+        return context
+
+    
+
 class RetrieveRakingPoolView(TemplateView):
     template_name = '../templates/qatar/ranking_pool_retrieve.html'
     def get_context_data(self, **kwargs):

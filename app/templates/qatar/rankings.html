@@ -4,6 +4,7 @@
 
 {% block body %}
    <section id="index-content">
+    {% if worldcup_started == True %}
         <div id="rankings-banner-container">
             <div class="capa"></div>
             <div class="rankings-content">
@@ -24,6 +25,21 @@
                 </section>
             </div> 
         </div>
+    {% endif %}
+    {% if worldcup_started == False %}
+        <div id="rankings-banner-container">
+            <div class="capa"></div>
+            <div class="rankings-content">
+                <section id="rankings-container-section">
+                    <div id="rankings-container">
+                        <div id="rankings-username-container">
+                            <h4 id="rankings-username-title">Podras ver las quinierlas del resto de los usuarios una vez inicie el mundial</h4>
+                        </div>
+                    </div>
+                </section>
+            </div> 
+        </div>
+    {% endif %}
    </section>
 {% endblock body %}
 
