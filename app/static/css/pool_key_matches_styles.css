@@ -14,7 +14,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    width: 80%;
+    width: 90%;
     margin-top: 40px;
     border: 0px solid green;
 }
@@ -26,7 +26,7 @@
 
 #worldcup-key-match-container,
 #worldcup-key-match-container-live{
-    width: 300px;
+    width: 350px;
     margin: 30px;
     max-height: 145px;
     border: 0px solid #962038b7;

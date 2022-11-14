@@ -39,7 +39,7 @@ class WorldcupKeyMatchViewSet(
             return CreateWorldcupKeyMatchModelSerializer
         if self.action == 'create_key_matches_roundOf16':
             return CreateRoundOf16KeyMatchModelSerializer
-        if self.action == 'create_key_matches_roundOf8':
+        if self.action == 'create_key_matches_quarter_finals':
             return CreateQuarterFinalsKeyMatchModelSerializer
         if self.action == 'create_key_matches_semifinal':
             return CreateSemifinalKeyMatchModelSerializer
@@ -50,8 +50,8 @@ class WorldcupKeyMatchViewSet(
     def get_permissions(self):
         permissions = []
         if self.action in ['create', 'update', 'partial_update', 'start_match',
-            'create_key_matches_roundOf16','finish_match_roundOf16', 
-            'create_key_matches_roundOf8', 'create_key_matches_semifinal',
+            'create_key_matches_roundOf16','finish_key_match', 
+            'create_key_matches_quarter_finals', 'create_key_matches_semifinal',
             'create_key_matches_final']:
             permissions.append(IsAuthenticatedOrReadOnly)
             permissions.append(IsAdminUser)
@@ -70,6 +70,8 @@ class WorldcupKeyMatchViewSet(
             return WorldcupKeyMatch.objects.filter(started=True, finished=False)
         if self.action == 'get_played_matches':
             return WorldcupKeyMatch.objects.filter(started=True, finished=True)
+        if self.action == 'get_analized_matches':
+            return WorldcupKeyMatch.objects.filter(analized=True)
         if self.action == 'get_matches_by_round':
             print(self.kwargs)
             return WorldcupKeyMatch.objects.filter(round=self.kwargs['match_number'])
@@ -129,6 +131,13 @@ class WorldcupKeyMatchViewSet(
 
     @action(detail=False, methods=["get"])
     def get_started_matches(self, request, *args, **kwargs):
+        """Get started matches."""
+        matches = self.get_queryset()
+        serializer = WorldcupKeyMatchModelSerializer(matches, many=True).data
+        return Response(serializer, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["get"])
+    def get_analized_matches(self, request, *args, **kwargs):
         """Get started matches."""
         matches = self.get_queryset()
         serializer = WorldcupKeyMatchModelSerializer(matches, many=True).data

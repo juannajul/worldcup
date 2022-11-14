@@ -1,20 +1,46 @@
 document.addEventListener('DOMContentLoaded', function () {
     var path = window.location.pathname;
     var poolId = path.split('/')[4];
+    getPool(poolId);
+
     getWorldcupMatches(poolId);
 
     const createKeyPoolMatchesBtn = document.getElementById('worldcup-key-pool-matches-btn');
-    createKeyPoolMatchesBtn.addEventListener('click', () => {
-        window.location.href = `/worldcup/qatar/pool_key_matches/${poolId}/`;
-    })
+    if (createKeyPoolMatchesBtn) {
+        createKeyPoolMatchesBtn.addEventListener('click', () => {
+            window.location.href = `/worldcup/qatar/pool_key_matches/${poolId}/`;
+        })
+    }
+    
 
     getWorldcupKeyMatches(poolId)
-    /*
-    createPoolMatchesButton.addEventListener('click', function() {
-      createPool(matchesNumberList);
-    });
-    */
 });
+
+async function getPool(poolId){
+    const response = await fetch(
+        `/api/worldcup/worldcup_pools/${poolId}/`,
+        {
+            method: 'GET',
+        }
+    );
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json(); 
+    const roundGroupMatchesPoints = document.querySelector('#pool-round-group-matches-points-container');
+    let roundGroupMatchesPointsHtml = `
+        <h4 class="pool-round-group-matches-points-title">Fase de grupos: ${data.round_group_points}pts</h4>
+    `
+    roundGroupMatchesPoints.innerHTML = roundGroupMatchesPointsHtml;
+    const roundGroupPoints = document.querySelector('#pool-group-points-container');
+    let roundGroupPointsHtml = `
+        <h4 class="pool-round-group-matches-points-title">Puntos de grupo: ${data.group_points}pts</h4>`;
+    roundGroupPoints.innerHTML = roundGroupPointsHtml;
+    const roundKeyMatchesPoints = document.querySelector('#pool-round-key-matches-points-container');
+    let roundKeyMatchesPointsHtml = `
+        <h4 class="pool-round-group-matches-points-title">Fase de llaves: ${data.round_key_points}pts</h4>`;
+    roundKeyMatchesPoints.innerHTML = roundKeyMatchesPointsHtml;
+}
 
 async function getWorldcupMatches(poolId) {
     const response = await fetch(
@@ -72,7 +98,7 @@ function showWorldcupMatches(data) {
                           </div> 
                       </div>
                       <div class="worldcup-match-date-container" id="worldcup-match-date-container-${data[i].match_number}">
-                          <h4 id="worldcup-match-date-title">${date}</h4>
+                          <h4 id="worldcup-match-date-title">${data[i].pool_match_points} pts de quiniela</h4>
                       </div>
                   </form>
               </div>
@@ -151,7 +177,7 @@ function showWorldcupKeyMatches(data) {
                           </div>  
                       </div>
                       <div class="worldcup-key-match-date-container" id="worldcup-match-date-container-${data[i].match_number}">
-                          <h4 id="worldcup-key-match-date-title">${date}</h4>
+                          <h4 id="worldcup-key-match-date-title">${data[i].pool_match_points} pts de quiniela</h4>
                       </div>
                   </form>
               </div>

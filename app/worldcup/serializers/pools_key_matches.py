@@ -46,7 +46,6 @@ class CreatePoolKeyMatchModelSerializer(serializers.ModelSerializer):
         """Verify that key pool doesn´t exists"""
         match_number = data['match_number']
         pool = data['pool']
-        print(pool.id)
         pool = WorldcupPool.objects.get(pk=pool.id)
         key_match = PoolKeyMatch.objects.filter(pool=pool, match_number=match_number)
         key_match.delete()
@@ -406,7 +405,7 @@ class SetPoolKeyMatchPointsModelSerializer(serializers.Serializer):
 
                         
                     # Pool
-                    print(pool_match_points)
+                    print(f'{pool_match_points} {pool.user.username}')
                     pool.points += pool_match_points
                     pool.round_key_points += pool_match_points
                     pool.save()

@@ -16,11 +16,8 @@ async function getGroupTeams() {
         }
         
         const teams = await response.json();
-        console.log(teams);
-        //setTeamPlace(place);
         //show Group Teams
         let group = groups[i];
-        console.log(group);
         const groupTeamsTable = document.getElementById(`worldcup-group-teams-container_${group}`);
         groupTeamsTable.innerHTML = teams.map(team => {
             return `
@@ -56,37 +53,25 @@ async function getGroupTeams() {
         </div>
             `;
         }).join('');
-        
+        setTeamPlace(groups[i]);
     }
     
 }
 
-                
-
-async function setTeamPlace(place) {
-    let first_place = false
-    let second_place = false
-    if (i == 0) {
-            first_place = true
-        }
-    if (i == 1) {
-            second_place = true
-        }
+async function setTeamPlace(group) {
     const response = await fetch(
-        `/api/worldcup/teams/${place}/set_team_place/`, {
+        `/api/worldcup/teams/${group}/set_group_places/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            'first_place': first_place,
-            'second_place': second_place
         })
         });
         if (!response.ok) {
+            console.log(response);
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-      //  console.log(data);
 }

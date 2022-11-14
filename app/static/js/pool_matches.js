@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
   getWorldcupMatches(matchesNumberList);
   createPoolMatchesButton.addEventListener('click', function() {
     createPool(matchesNumberList);
+    createPoolMatchesButton.style.display = 'none';
+    window.setTimeout(()=>{
+        window.location.href = `/worldcup/qatar/profile/`;
+    }, 2000)
+    
   });
   
 });
@@ -19,7 +24,6 @@ async function getWorldcupMatches(matchesNumberList) {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
 	const data = await response.json();
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
         matchesNumberList.push(data[i].match_number);
     }
@@ -89,7 +93,6 @@ async function getMatchInformation(matchesNumberList, poolId){
         let group = document.getElementById(`worldcup-match-group-${matchNumber}`).innerHTML;
         let match_number = document.getElementById(`worldcup-match-number-${matchNumber}`).innerHTML;
         let round = document.getElementById(`worldcup-match-round-${matchNumber}`).innerHTML;
-        let pool = 1
         matchData = {
             "team_1": team_1,
             "team_1_goals": team_1_goals,
@@ -101,20 +104,22 @@ async function getMatchInformation(matchesNumberList, poolId){
             "round": round,
             "pool": poolId
         }
-        console.log(matchData);
-        console.log("LISTO");
         createPoolMatches(matchData);
     });
 }
 
 async function createPool(matchesNumberList){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     response = await fetch(
         `/api/worldcup/worldcup_pools/`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
+        
         body: JSON.stringify({
            
         })
@@ -123,15 +128,35 @@ async function createPool(matchesNumberList){
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
         removeUserCredit();
         poolId = data.id;
         getMatchInformation(matchesNumberList, poolId);
-        
+        //await teamGroupPointsMatches(poolId);
+}
 
+async function teamGroupPointsMatches(poolId){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
+    response = await fetch(
+        `/api/worldcup/pool_group_teams/${poolId}/analize_pool_group_matches/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify({
+           
+        })
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 }
 
 async function removeUserCredit(){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     var user = JSON.parse(localStorage.getItem("user"));
     var user_username = user.username ;
     response = await fetch(
@@ -140,23 +165,25 @@ async function removeUserCredit(){
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         }
     })
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data);
 }
 
 async function createPoolMatches(matchData) {
-    console.log(matchData);
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     response = await fetch(
         `/api/worldcup/pool_matches/`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         body: JSON.stringify({
             "team_1": matchData.team_1,
@@ -173,7 +200,5 @@ async function createPoolMatches(matchData) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
-        console.log(data);
 }
 

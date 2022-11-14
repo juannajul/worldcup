@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var access_token = JSON.parse(localStorage.getItem("access_token"));
+    if (access_token == null){
+        window.location.href = "/worldcup/qatar/login/";
+    }
     setProfileUsername();
     getProfileUserPool();
     const logoutBtn = document.getElementById("profile-logout-btn-container");
@@ -15,7 +19,6 @@ function setProfileUsername(){
     var username = user.username
     var username = document.getElementById("profile-username-title");
     username.innerHTML = `Bievenido ${user.username}`;
-    console.log(user)
 }
 
 async function getProfileUserPool(){
@@ -30,12 +33,10 @@ async function getProfileUserPool(){
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
 	const data = await response.json();
-    console.log(data)
     poolContainer = document.querySelector('#profile-user-pools-container');
     profilePool = '';
     poolNumber = 1;
     data.forEach(pool => {
-        console.log(pool)
         profilePool += `
         <a href="/worldcup/qatar/retrieve_pool/${pool.id}" class="profile-user-pool-container-link" id="profile-user-pool-link_${pool.id}">
             <div id="profile-user-pool-container_${pool.id}" class="profile-user-pool-container">

@@ -234,7 +234,7 @@ class CreateQuarterFinalsKeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-10 15:00:00'
-            round = 'Quarter Finals'
+            round = 'Quarter-Finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date
@@ -282,7 +282,7 @@ class CreateSemifinalKeyMatchModelSerializer(serializers.ModelSerializer):
             team_1 = round_of_16_match_1.team_winner
             team_2 = round_of_16_match_2.team_winner
             match_date = '2022-12-09 15:00:00'
-            round = 'Semi-inals'
+            round = 'Semi-finals'
             data['team_1'] = team_1
             data['team_2'] = team_2
             data['match_date'] = match_date

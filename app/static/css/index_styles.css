@@ -28,6 +28,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.425);
+    z-index: -4;
 }
 
 @media (max-width: 1500px) {
@@ -114,7 +115,7 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    width: 100%;
+    width: 95%;
     height: auto;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -199,4 +200,64 @@
 
 .worldcup-group-teams-country-container{
     margin-top: 5px;
+}
+
+@media (max-width: 700px){
+
+    #index-teams-groups-section{
+        width: 100%;
+    }
+    
+}
+
+
+
+#banner-title-container{
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    padding-top: 200px;
+}
+
+#banner-title{
+    font-family: RobotoMedium;
+    font-size: 70px;
+    color: #ffffff;
+}
+
+#banner-reward-container{
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px; 
+    margin-bottom: 20px;
+}
+.banner-reward{
+    font-family: RobotoMedium;
+    font-size: 100px;
+    color: #2c5a89;
+    animation: rewardAnimation 2s linear infinite;
+}
+
+.banner-reward-title{
+    font-family: RobotoMedium;
+    font-size: 30px;
+}
+
+@keyframes rewardAnimation{
+    0%{
+        font-size: 105px;
+    }
+    25%{
+        font-size: 110px;
+    }
+    50%{
+        font-size: 115px;
+    }
+    75%{
+        font-size: 110px;
+    }
+    100%{
+        font-size: 105px;
+    }
 }

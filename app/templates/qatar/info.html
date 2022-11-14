@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block body %}
+   <section id="info-content">
+        <div id="info-container">
+            <div class="info-title-container">
+                <h4 class="info-title">
+                    Formato
+                </h4>
+            </div>
+            <div class="info-round-container">
+                <h4 class="info-round-title">Fase de grupos:</h4>
+                <h4 class="info-round-description">
+                    Los 32 equipos participantes se dividen en ocho grupos de cuatro equipos cada uno. 
+                    Los equipos se enfrentan entre sí en un sistema de todos contra todos con un total de 48 partidos. 
+                    Los dos primeros de cada grupo avanzan a la siguiente ronda. La puntuación se otorga de la siguiente manera:
+                </h4>
+                <ul class="info-round-rules-list">
+                    <li class="info-round-rules">- Acertar el equipo ganador o emptate 3pts.</li>
+                    <li class="info-round-rules">- Acertar equipo ganador o empate y resultado exacto en goles 5pts.</li>
+                    <li class="info-round-rules">- No acertar el resultado 0pts.</li>
+                </ul>
+
+                <h4 class="info-round-description">
+                    Al finalizar la ronda de grupos con el partido 48 finalizado, se otorgarán los siguientes puntos extra:
+                </h4>
+
+                <ul class="info-round-rules-list">
+                    <li class="info-round-rules">- Por equipo clasificado acertado 3pts.</li>
+                    <li class="info-round-rules">- Por equipo clasificado en posición exacta 4pts.</li>
+                </ul>
+            </div>
+
+            <div class="info-round-container">
+                <h4 class="info-round-title">Fase de LLaves:</h4>
+                <h4 class="info-round-description">
+                    Al finalizar la fase de grupos se habilitará un boton en cada quiniela para que los participantes ingresen sus resultados de esta fase.
+                    Los 16 equipos clasificados se dividen en ocho llaves de dos equipos cada una. 
+                    El ganador de cada llave avanza a la siguiente ronda. La puntuación se otorga de la siguiente manera:
+                </h4>
+                <ul class="info-round-rules-list">
+                    <li class="info-round-rules">- Acertar el equipo ganador 3pts.</li>
+                    <li class="info-round-rules">- Acertar equipo ganador y resultado exacto en goles 5pts.</li>
+                    <li class="info-round-rules">- En caso de empate definir equipo ganador en las casillas de penales.</li>
+                    <li class="info-round-rules">- En caso de empate, para el resultado exacto no se tomará en cuenta la tanda de penales, solo los goles durante el partido.</li>
+                    <li class="info-round-rules">- En caso de empate, los goles en prórroga se tomarán en cuenta como gol del partido.</li>
+                </ul>
+                
+            </div>
+            <div class="info-title-container">
+                <h4 class="info-title">
+                    Premiación
+                </h4>
+            </div>
+            <div class="info-round-container">
+                <h4 class="info-round-title">Premio al ganador:</h4>
+                <h4 class="info-round-description">
+                    El precio de entrada es de $12 por quiniela. El premio irá aumentando por cada quiniela creada.
+                    El participante con mayor puntaje al finalizar el mundial será el ganador del total del premio. 
+                    El participante con segundo mayor puntaje recibirá de vuelta el precio de la entrada de quiniela.
+                </h4>
+                
+            </div>
+        </div>
+    </section>
+{% endblock body %}
+
+{% block script %}
+    <link rel="stylesheet" href="{% static 'css/info_styles.css' %}">
+{% endblock %}

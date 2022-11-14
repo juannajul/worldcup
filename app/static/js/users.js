@@ -11,9 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var signupBtn = document.getElementById("user-signup-btn");
     if (signupBtn){
         signupBtn.addEventListener("click", function(){
-            console.log("raro")
             signup();
-           
         });
     }
 });
@@ -36,13 +34,15 @@ async function login(email, password){
             for (var key in data){
                 document.getElementById("login-error-msg").innerHTML = data[key];
             }
+            console.log(response)
             throw new Error(`HTTP error! status: ${data}`);
         }
         const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("access_token", JSON.stringify(data.access_token));
         var user = JSON.parse(localStorage.getItem("user"));
         window.location.href = `/worldcup/qatar/profile/`;
-        console.log(user.username);
+        console.log(data);
         
 }
 

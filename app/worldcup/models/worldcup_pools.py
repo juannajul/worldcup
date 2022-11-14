@@ -13,9 +13,10 @@ class WorldcupPool(models.Model):
     group_points = models.IntegerField(default=0, verbose_name='Group Points')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     updated = models.DateTimeField(auto_now=True, verbose_name='Updated')
+    group_analized = models.BooleanField(default=False, verbose_name='Group Analized')
 
     def __str__(self):
-        return self.user.username
+        return str(self.pk)
 
     class Meta:
         verbose_name_plural = "Worldcup pools"

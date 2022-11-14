@@ -1,7 +1,7 @@
 """Pools matches serializers."""
 
 # Django rest framework
-from multiprocessing import context
+from multiprocessing import context, pool
 from rest_framework import serializers
 
 # Models
@@ -9,6 +9,7 @@ from worldcup.models.pools_matches import PoolMatch
 from worldcup.models.teams import Team
 from worldcup.models.worldcup_pools import WorldcupPool
 from worldcup.models.worldcup_matches import WorldcupMatch
+from worldcup.models.pool_group_teams import PoolTeam
 
 # Serializers
 from worldcup.serializers.teams import TeamModelSerializer
@@ -48,7 +49,6 @@ class CreatePoolMatchModelSerializer(serializers.ModelSerializer):
         team_2 = Team.objects.get(team_code=team_2_code)
         data['team_1'] = team_1
         data['team_2'] = team_2
-        
         data = PoolMatch.objects.create(**data)
 
         return data
@@ -111,3 +111,70 @@ class SetPoolMatchPointsModelSerializer(serializers.Serializer):
 
         return instance
     
+
+class FinishPoolMatchesModelSerializer(serializers.Serializer):
+    """Finish match serializer."""
+
+    def update(self, instance , data):
+        """Finish match."""
+        if len(instance) > 0:
+            matches = instance 
+            for match in matches:
+                pool_team_1 = PoolTeam.objects.get(team_code=match.team_1.team_code, pool=match.pool)
+                pool_team_2 = PoolTeam.objects.get(team_code=match.team_2.team_code, pool=match.pool)
+                team_1_goals = match.team_1_goals
+                team_2_goals = match.team_2_goals
+                if team_1_goals > team_2_goals:
+                    # Team 1 wins
+                    #match.finished = True
+                    #match.save()
+                    # Pool teams
+                    pool_team_1.pool_team_points += 3
+                    pool_team_1.wins += 1
+                    pool_team_2.losses += 1
+                    pool_team_1.pool_team_goals_for += team_1_goals
+                    pool_team_1.pool_team_goals_against += team_2_goals
+                    pool_team_1.pool_team_goals_difference = pool_team_1.pool_team_goals_for - pool_team_1.pool_team_goals_against
+                    pool_team_2.pool_team_goals_for += team_2_goals
+                    pool_team_2.pool_team_goals_against += team_1_goals
+                    pool_team_2.pool_team_goals_difference = pool_team_2.pool_team_goals_for - pool_team_2.pool_team_goals_against
+                    pool_team_1.save()
+                    pool_team_2.save()
+                elif team_1_goals < team_2_goals:
+                    # Team 2 wins
+                    #match.finished = True
+                    #match.save()
+                    # Pool teams
+                    pool_team_2.pool_team_points += 3
+                    pool_team_2.wins += 1
+                    pool_team_1.losses += 1
+                    pool_team_2.pool_team_goals_for += team_2_goals
+                    pool_team_2.pool_team_goals_against += team_1_goals
+                    pool_team_2.pool_team_goals_difference = pool_team_2.pool_team_goals_for - pool_team_2.pool_team_goals_against
+                    pool_team_1.pool_team_goals_for += team_1_goals
+                    pool_team_1.pool_team_goals_against += team_2_goals
+                    pool_team_1.pool_team_goals_difference = pool_team_1.pool_team_goals_for - pool_team_1.pool_team_goals_against
+                    pool_team_1.save()
+                    pool_team_2.save()
+                elif team_1_goals == team_2_goals:
+                    # Draw
+                    #match.finished = True
+                    #match.save()
+                    # Pool teams
+                    pool_team_1.pool_team_points += 1
+                    pool_team_2.pool_team_points += 1
+                    pool_team_1.draws += 1
+                    pool_team_2.draws += 1
+                    pool_team_1.pool_team_goals_for += team_1_goals
+                    pool_team_1.pool_team_goals_against += team_2_goals
+                    pool_team_1.pool_team_goals_difference = pool_team_1.pool_team_goals_for - pool_team_1.pool_team_goals_against
+                    pool_team_2.pool_team_goals_for += team_2_goals
+                    pool_team_2.pool_team_goals_against += team_1_goals
+                    pool_team_2.pool_team_goals_difference = pool_team_2.pool_team_goals_for - pool_team_2.pool_team_goals_against
+                    pool_team_1.save()
+                    pool_team_2.save()
+                
+            return instance
+        else:
+            raise serializers.ValidationError('there is no match finished')
+            return data

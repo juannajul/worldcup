@@ -33,7 +33,7 @@ class PoolKeyMatchViewSet(
     queryset = PoolKeyMatch.objects.all()
     lookup_field = 'match_number'
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ('match_number',)
+    search_fields = ('match_number', 'pool')
 
     def get_serializer_class(self):
         """Return serializer based on actions"""
@@ -64,6 +64,11 @@ class PoolKeyMatchViewSet(
         if self.action == 'get_matches_by_round':
             round = self.kwargs['match_number']
             return PoolKeyMatch.objects.filter(round=round)
+        if self.action == 'get_matches_by_round_and_pool':
+            url = self.kwargs['match_number']
+            round = url.split('_')[0]
+            pool = url.split('_')[1]
+            return PoolKeyMatch.objects.filter(round=round, pool=pool)
         if self.action == 'save_pool_key_match_results':
             url = self.kwargs['match_number']
             url_list = url.split('_')
@@ -127,6 +132,12 @@ class PoolKeyMatchViewSet(
 
     @action(detail=True, methods=['get'])
     def get_matches_by_round(self, request, *args, **kwargs):
+        matches = self.get_queryset()
+        serializer = PoolKeyMatchModelSerializer(matches, many=True).data
+        return Response(serializer, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'])
+    def get_matches_by_round_and_pool(self, request, *args, **kwargs):
         matches = self.get_queryset()
         serializer = PoolKeyMatchModelSerializer(matches, many=True).data
         return Response(serializer, status=status.HTTP_200_OK)

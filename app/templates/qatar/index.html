@@ -8,6 +8,12 @@
       <div id="index-banner-container">
          <div class="capa"></div>
          <div class="banner-content">
+            <div id="banner-title-container">
+               <h1 id="banner-title">Worldcup Qatar 2022</h1>
+            </div>
+            <div id="banner-reward-container">
+               <h2 class="banner-reward">${{reward}}</h2>
+            </div>
          </div> 
       </div>
       {% if started_matches %}
@@ -18,6 +24,48 @@
                         <form id="worldcup-match-form-">
                            <div id="worldcup-match-number-container-live">
                               <h4 class="worldcup-match-number-container-title">Match: {{match.match_number}} - Group: {{match.group}} - Round {{match.round}}</h4>
+                           </div>
+                           <div id="worldcup-match-team_1">
+                              <label id="worldcup-match-team_1-code-{{match.match_number}}" class="worldcup-match-team_1-code" for="worldcup-match-team_1-code">{{match.team_1.team_code}}</label>
+                              <div class="worldcup-match-team-flag">
+                                    <img src="{{match.team_1.flag_image}}" alt="">
+                              </div>
+                              <div id="worldcup-match-team_1-name">
+                                    <h4 id="worldcup-match-team_1-name-title">{{match.team_1.country}}</h4>
+                              </div>
+                              <div id="worldcup-match-team_1-goals-container">
+                                    <input type="" id="worldcup-match-team_1-goals-{{match.match_number}}" class="worldcup-match-team_1-goals" name="worldcup-match-team_1-goals" min="0" value="{{match.team_1_goals}}" disabled>
+                              </div>   
+                           </div>
+                           <div id="worldcup-match-team_2">
+                              <label id="worldcup-match-team_2-code-{{match.match_number}}" class="worldcup-match-team_2-code" for="worldcup-match-team_2-code">{{match.team_2.team_code}}</label>
+                              <div class="worldcup-match-team-flag">
+                                    <img src="{{match.team_2.flag_image}}" alt="">
+                              </div>
+                              <div id="worldcup-match-team_2-name">
+                                    <h4 id="worldcup-match-team_2-name-title">{{match.team_2.country}}</h4>
+                              </div>
+                              <div id="worldcup-match-team_2-goals-container">
+                                    <input type="" id="worldcup-match-team_2-goals-{{match.match_number}}" class="worldcup-match-team_2-goals" name="worldcup-match-team_2-goals" min="0" value="{{match.team_2_goals}}" disabled>
+                              </div> 
+                           </div>
+                           <div class="worldcup-match-date-container-live" id="worldcup-match-date-container-{{match.match_number}}">
+                              <h4 id="worldcup-match-date-title">Now</h4>
+                           </div>
+                        </form>
+                     </div>
+               {% endfor %}
+            </div>
+         </section>
+      {% endif %}
+      {% if started_key_matches %}
+         <section id="index-started-matches-section">
+            <div id="worldcup-matches-container-live">
+               {% for match in started_key_matches %}
+                     <div id="worldcup-match-container-live">
+                        <form id="worldcup-match-form-">
+                           <div id="worldcup-match-number-container-live">
+                              <h4 class="worldcup-match-number-container-title">Match: {{match.match_number}} - Round: {{match.round}}</h4>
                            </div>
                            <div id="worldcup-match-team_1">
                               <label id="worldcup-match-team_1-code-{{match.match_number}}" class="worldcup-match-team_1-code" for="worldcup-match-team_1-code">{{match.team_1.team_code}}</label>
@@ -89,7 +137,6 @@
               </div>
             </div>
          {% endfor %}
-         
       </section>
    </section>
 {% endblock body %}

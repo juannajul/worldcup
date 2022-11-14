@@ -4,11 +4,6 @@
 
 {% block body %}
    <section id="pool-matches-content">
-    {% if group_round_finished == False %}
-        <div id="worldcup-key-pool-matches-btn" class="worldcup-key-pool-matches-btn">
-            <h4 id="worldcup-save-pool-matches-btn-title">LLaves</h4>
-        </div>
-    {% endif %}
 
     <section id="pool-points-section">
       <div id="pool-round-group-matches-points-container" class="pool-points-container">
@@ -62,7 +57,7 @@
         {% endfor %}
      </section>
 
-    {% if group_round_finished == False %}
+    {% if group_round_finished == True %}
         <div id="key-round-title-container">
             <h4 id="key-round-title">Fase de llaves</h4>
         </div>

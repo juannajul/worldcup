@@ -241,7 +241,7 @@
       color: transparent;
       top: 88px;
       border-top: 1px solid rgba(68, 67, 67, 0.342);
-      z-index: 2;
+      z-index: 100;
       left: 0;
       text-align: center;
       justify-content: flex-start;

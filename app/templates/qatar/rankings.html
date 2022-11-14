@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block body %}
+   <section id="index-content">
+        <div id="rankings-banner-container">
+            <div class="capa"></div>
+            <div class="rankings-content">
+                <section id="rankings-container-section">
+                    <div id="rankings-container">
+                        <div id="rankings-username-container">
+                            <h4 id="rankings-username-title"></h4>
+                        </div>
+                        <div id="rankings-pools-container">
+                            <div id="rankings-pools-info-container">
+                                <div id="rankings-pools-info-title-container">
+                                    <h4 id="rankings-pools-info-title">Quinielas</h4>
+                                </div>
+                                <div id="rankings-user-pools-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div> 
+        </div>
+   </section>
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static '/js/rankings.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/rankings_styles.css' %}">
+{% endblock %}

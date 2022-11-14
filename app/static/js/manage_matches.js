@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var access_token = JSON.parse(localStorage.getItem("access_token"));
+    if (access_token == null){
+        window.location.href = "/worldcup/qatar/login/";
+    }
     const startMatchBtn = document.querySelector('#worldcup-manage-start-match-btn');
     startMatchBtn.addEventListener('click', startMatches);
 
@@ -7,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const finishMatchBtn = document.querySelector('#worldcup-manage-finish-match-btn');
     finishMatchBtn.addEventListener('click', finishMatches);
+
+    const groupPointsBtn = document.querySelector('#worldcup-manage-points-group-classified-btn');
+    groupPointsBtn.addEventListener('click', GroupPoints); 
 
     const finishKeyMatchBtn = document.querySelector('#worldcup-manage-finish-key-match-btn');
     finishKeyMatchBtn.addEventListener('click', finishKeyMatches);
@@ -28,20 +35,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const setPoolKeyMatchesPointsBtn = document.querySelector('#worldcup-manage-points-key-match-btn');
     setPoolKeyMatchesPointsBtn.addEventListener('click', setPoolKeyMatchesPoints);
-
-    matchesPlayed();
-    keyMatchesPlayed();
-    matchesAnalized();
+    window.setTimeout(()=>{
+        matchesPlayed();
+    }, 300)
+    window.setTimeout(()=>{
+        keyMatchesPlayed();
+    }, 1000)
+    window.setTimeout(()=>{
+        matchesAnalized();
+    }, 300)
+    window.setTimeout(()=>{
+        keyMatchesAnalized();
+    }, 1000)
 });
 
 
 async function startMatches() {
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const matchNumber = document.querySelector('#worldcup-manage-start-match-input').value;
     const response = await fetch(`/api/worldcup/worldcup_matches/${matchNumber}/start_match/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         })
         if (!response.ok) {
@@ -53,12 +71,15 @@ async function startMatches() {
 }
 
 async function startKeyMatches() {
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const matchNumber = document.querySelector('#worldcup-manage-start-key-match-input').value;
     const response = await fetch(`/api/worldcup/worldcup_key_matches/${matchNumber}/start_match/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         })
         if (!response.ok) {
@@ -70,12 +91,15 @@ async function startKeyMatches() {
 }
 
 async function finishMatches() {
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const matchNumber = document.querySelector('#worldcup-manage-finish-match-input').value;
     const response = await fetch(`/api/worldcup/worldcup_matches/${matchNumber}/finish_match/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         })
         if (!response.ok) {
@@ -87,12 +111,15 @@ async function finishMatches() {
 }
 
 async function finishKeyMatches() {
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const matchNumber = document.querySelector('#worldcup-manage-finish-key-match-input').value;
     const response = await fetch(`/api/worldcup/worldcup_key_matches/${matchNumber}/finish_key_match/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         })
         if (!response.ok) {
@@ -105,11 +132,35 @@ async function finishKeyMatches() {
 }
 
 async function setPoolGroupMatchesPoints(){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const response = await fetch(`/api/worldcup/pool_matches/set_pool_match_points/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        })
+        if (!response.ok) {
+            console.log(response);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        console.log(response);
+}
+
+
+async function GroupPoints(){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
+    const response = await fetch(`/api/worldcup/pool_group_teams/set_group_places_points/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         })
         if (!response.ok) {
@@ -119,7 +170,6 @@ async function setPoolGroupMatchesPoints(){
         console.log(data);
         console.log(response);
 }
-
 
 async function matchesPlayed(){
     const response = await fetch(`/api/worldcup/worldcup_matches/get_played_matches/`, {
@@ -193,6 +243,30 @@ async function matchesAnalized(){
         }).join('');
 }
 
+async function keyMatchesAnalized(){
+    const response = await fetch(`/api/worldcup/worldcup_key_matches/get_analized_matches/`, {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        console.log(response);
+        const matchesPlayed = document.querySelector('#worldcup-manage-info-matches-analized');
+        matchesPlayed.innerHTML += data.map(match => {
+            return `
+            <div class="worldcup-manage-info-match-analized-container">
+                <h4 class="worldcup-manage-info-match-analized-info">Match: ${match.match_number} Round: ${match.round} - ${match.team_1.country} vs ${match.team_2.country}.</h4>
+            </div>
+            `
+        }).join('');
+}
+
 async function createRoundOf16(){
     match_numbers = [49, 50, 51, 52, 53, 54, 55, 56];
     const create_match = await match_numbers.forEach(match_number => {
@@ -202,11 +276,14 @@ async function createRoundOf16(){
 }
 
 async function createRoundOf16MatchesKeys(match_number){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const response = await fetch(`/api/worldcup/worldcup_key_matches/create_key_matches_roundOf16/`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         body: JSON.stringify({
             match_number: match_number,
@@ -229,11 +306,14 @@ async function createRoundOf8(){
 }
 
 async function createRoundOf8MatchesKeys(match_number){
-    const response = await fetch(`/api/worldcup/worldcup_key_matches/create_key_matches_roundOf8/`, {
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
+    const response = await fetch(`/api/worldcup/worldcup_key_matches/create_key_matches_quarter_finals/`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         body: JSON.stringify({
             match_number: match_number,
@@ -256,11 +336,14 @@ async function createSemifinal(){
 }
 
 async function createSemifinalKeys(match_number){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const response = await fetch(`/api/worldcup/worldcup_key_matches/create_key_matches_semifinal/`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         body: JSON.stringify({
             match_number: match_number,
@@ -283,11 +366,14 @@ async function createFinal(){
 }
 
 async function createFinalKeys(match_number){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const response = await fetch(`/api/worldcup/worldcup_key_matches/create_key_matches_final/`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         body: JSON.stringify({
             match_number: match_number,
@@ -302,11 +388,14 @@ async function createFinalKeys(match_number){
 }
 
 async function setPoolKeyMatchesPoints(){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
     const response = await fetch(`/api/worldcup/pool_key_matches/set_pool_key_match_points/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
         },
         })
         if (!response.ok) {

@@ -44,10 +44,8 @@ class TeamViewSet(
     
     def get_queryset(self): 
         if self.action == 'team_by_group':
-            print(self.kwargs)
             return Team.objects.filter(group=self.kwargs['group'])
         if self.action == 'set_group_places':
-            print(self.kwargs)
             return Team.objects.filter(group=self.kwargs['group'])
         return Team.objects.all()
     
@@ -65,7 +63,6 @@ class TeamViewSet(
         serializer = SetTeamPlaceModelSerializer(instance=group, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

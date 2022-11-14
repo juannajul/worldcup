@@ -8,6 +8,7 @@ from rest_framework import serializers
 from worldcup.models.worldcup_matches import WorldcupMatch
 from worldcup.models.teams import Team
 from worldcup.models.pools_matches import PoolMatch
+from worldcup.models.pool_group_teams import PoolTeam
 
 # Serializers
 from worldcup.serializers.teams import TeamModelSerializer
