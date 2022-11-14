@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from worldcup.models.worldcup_matches import WorldcupMatch
 from worldcup.models.worldcup_key_matches import WorldcupKeyMatch
 from worldcup.models.worldcup_pools import WorldcupPool
+from worldcup.models.worldcup_key_matches import WorldcupKeyMatch
 
 
 class IndexView(TemplateView):
@@ -16,10 +17,10 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         """Add user and profile to context."""
         context = super().get_context_data(**kwargs)
-        r = requests.get('http://127.0.0.1:8000/api/worldcup/worldcup_matches/get_started_matches/')
-        r_key_matches = requests.get('http://127.0.0.1:8000/api/worldcup/worldcup_key_matches/get_started_matches/')
-        context['started_key_matches'] = r_key_matches.json()
-        context['started_matches'] = r.json()
+        r_key_matches = WorldcupKeyMatch.objects.filter(started=True, finished=False)
+        context['started_key_matches'] = r_key_matches
+        r = WorldcupMatch.objects.filter(started=True, finished=False)
+        context['started_matches'] = r
         groups = ["A", "B", "C", "D", "E", "F", "G", "H"]
         pools_number = WorldcupPool.objects.all().count()
         reward = pools_number * 10
