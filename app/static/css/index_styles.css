@@ -239,9 +239,12 @@
     animation: rewardAnimation 2s linear infinite;
 }
 
+
+
 .banner-reward-title{
     font-family: RobotoMedium;
-    font-size: 30px;
+    font-size: 50px;
+    color: #2c5a89;
 }
 
 @keyframes rewardAnimation{
