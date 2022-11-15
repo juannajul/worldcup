@@ -216,7 +216,7 @@
     z-index: 10;
     width: 100%;
     text-align: center;
-    padding-top: 200px;
+    padding-top: 150px;
 }
 
 #banner-title{
@@ -246,6 +246,13 @@
     font-size: 50px;
     color: #2c5a89;
 }
+
+.banner-reward-subtitle{
+    font-family: RobotoLigth;
+    font-size: 15px;
+    color: #ffffff;
+}
+
 
 @keyframes rewardAnimation{
     0%{
