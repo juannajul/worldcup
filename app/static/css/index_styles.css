@@ -248,9 +248,13 @@
 }
 
 .banner-reward-subtitle{
-    font-family: RobotoLigth;
-    font-size: 15px;
-    color: #ffffff;
+    width: 340px;
+    height: 23px;
+    font-family: RobotoMedium;
+    background: #ffffff;
+    font-size: 18px;
+    color: #222222;
+    border-radius: 10px;
 }
 
 
