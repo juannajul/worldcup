@@ -28,7 +28,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.425);
-    z-index: -4;
+    z-index: -1;
 }
 
 @media (max-width: 1500px) {
@@ -210,19 +210,22 @@
     
 }
 
-
+.banner-content{
+    position: relative;
+    z-index: 5;
+}
 
 #banner-title-container{
     z-index: 10;
     width: 100%;
     text-align: center;
-    padding-top: 150px;
+    padding-top: 130px;
 }
 
 #banner-title{
     font-family: RobotoMedium;
     font-size: 70px;
-    color: #ffffff;
+    color: #fff;
 }
 
 #banner-reward-container{
@@ -235,7 +238,7 @@
 .banner-reward{
     font-family: RobotoMedium;
     font-size: 100px;
-    color: #2c5a89;
+    color: #3e80c2;
     animation: rewardAnimation 2s linear infinite;
 }
 
@@ -244,17 +247,19 @@
 .banner-reward-title{
     font-family: RobotoMedium;
     font-size: 50px;
-    color: #2c5a89;
+    color: #3e80c2;
 }
 
 .banner-reward-subtitle{
     width: 340px;
-    height: 23px;
+    height: 25px;
+    padding-top: 3px;
     font-family: RobotoMedium;
-    background: #ffffff;
-    font-size: 18px;
-    color: #222222;
+    background: #fff;
+    font-size: 16px;
+    color: #962037;
     border-radius: 10px;
+    margin-top: 10px;
 }
 
 

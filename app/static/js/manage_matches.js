@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const setPoolKeyMatchesPointsBtn = document.querySelector('#worldcup-manage-points-key-match-btn');
     setPoolKeyMatchesPointsBtn.addEventListener('click', setPoolKeyMatchesPoints);
+
+    const updateUserPasswordBtn = document.querySelector('#worldcup-update-password-btn');
+    updateUserPasswordBtn.addEventListener('click', updateUserPassword);
+
     window.setTimeout(()=>{
         matchesPlayed();
     }, 300)
@@ -397,6 +401,33 @@ async function setPoolKeyMatchesPoints(){
             'Content-Type': 'application/json',
             'Authorization': `Token ${token}`,
         },
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        console.log(response);
+}
+
+async function updateUserPassword(){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
+    const email = document.querySelector('#worldcup-update-password-input-email').value;
+    const password = document.querySelector('#worldcup-update-password-input-password').value;
+    const password_confirmation = document.querySelector('#worldcup-update-password-input-password-confirmation').value;
+    const response = await fetch(`/api/auth/users/update_password/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation,
+        })
         })
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

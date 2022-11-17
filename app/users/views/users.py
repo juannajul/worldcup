@@ -14,7 +14,7 @@ from rest_framework.permissions import (
 #from cride.users.permissions import IsAccountOwner
 
 # Serializers 
-from users.serializers.users import UserSignUpModelSerializer, UserModelSerializer, UserLoginSerializer, RemoveCreditsSerializer
+from users.serializers.users import UserSignUpModelSerializer, UserModelSerializer, UserLoginSerializer, RemoveCreditsSerializer, UserUpdatePasswordModelSerializer
 
 # Models
 from users.models.users import User
@@ -52,6 +52,16 @@ class UserViewSet(mixins.RetrieveModelMixin,
     def signup(self, request):
         """User sign up."""
         serializer = UserSignUpModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        data = UserModelSerializer(user).data
+        return Response(data, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=['patch'])
+    def update_password(self, request):
+        """User update password."""
+        users = User.objects.all()
+        serializer = UserUpdatePasswordModelSerializer(instance = users, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         data = UserModelSerializer(user).data

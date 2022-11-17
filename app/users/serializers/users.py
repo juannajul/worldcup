@@ -48,6 +48,34 @@ class UserSignUpModelSerializer(serializers.ModelSerializer):
             'first_name', 'last_name',
         )
 
+
+class UserUpdatePasswordModelSerializer(serializers.ModelSerializer):
+    email  = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+    password_confirmation = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        if data['password'] != data['password_confirmation']:
+            raise serializers.ValidationError('Passwords must match.')
+        if len(data['password']) < 8:
+            raise serializers.ValidationError('Password must be at least 8 characters long.')
+        return data
+
+    def update(self, instance, validated_data):
+        validated_data.pop('password_confirmation')
+        password = validated_data['password']
+        email = validated_data['email']
+        user = User.objects.get(email=email)
+        user.set_password(password)
+        user.save()
+        return user
+
+    class Meta:
+        model = User
+        fields = (
+             'email', 'password', 'password_confirmation'
+        )
+
 class UserLoginSerializer(serializers.Serializer):
     """
     User login serializer.
