@@ -29,6 +29,7 @@
                         <div id="profile-credits-container">
                             <h4 id="profile-credits-title"></h4>
                         </div>
+                        {% if worldcup_started == False %}
                         <div id="profile-pool-creation-btn-container">
                             <a id="profile-pool-creation-btn-link" href="{% url 'qatar_2022:pool_matches' %}">
                                 <div id="profile-pool-creation-btn">
@@ -45,6 +46,7 @@
                                 <label for="" id="credits-info-title">Debes adquirir creditos para crear tu quiniela</label>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </section>
             </div> 

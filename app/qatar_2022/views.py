@@ -41,6 +41,13 @@ class SignupView(TemplateView):
 class ProfileView(TemplateView):
     template_name = '../templates/users/profile.html'
 
+    def get_context_data(self, **kwargs):
+        """Add user and profile to context."""
+        context = super().get_context_data(**kwargs)
+        worldcup_started = True
+        context['worldcup_started'] = worldcup_started
+        return context
+
 #@method_decorator(user_login_required, name='dispatch')
 class RetrievePoolView(TemplateView):
     template_name = '../templates/qatar/retrieve_pool.html'
@@ -81,7 +88,7 @@ class RankingsView(TemplateView):
     def get_context_data(self, **kwargs):
         """Add user and profile to context."""
         context = super().get_context_data(**kwargs)
-        worldcup_started = False
+        worldcup_started = True
         context['worldcup_started'] = worldcup_started
         return context
 
