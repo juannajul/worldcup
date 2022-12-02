@@ -23,4 +23,4 @@ class Team(models.Model):
 
     class Meta:
         verbose_name_plural = "Teams"
-        ordering = ["group" ,"-points", "-goals_difference", "team_code", "-goals_for"]
+        ordering = ["group" ,"-points", "-goals_difference", "-goals_for", "team_code" ]
