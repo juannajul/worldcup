@@ -403,20 +403,23 @@ class SetPoolKeyMatchPointsModelSerializer(serializers.Serializer):
                                 # Exact result
                                 pool_match_points = 5
 
-                        
-                    # Pool
-                    print(f'{pool_match_points} {pool.user.username}')
-                    pool.points += pool_match_points
-                    pool.round_key_points += pool_match_points
-                    pool.save()
+                    # Qualified Team
+                worldcup_match_team_winner = worldcup_match.team_winner
+                pool_match_team_winner = pool_match.team_winner
+                if pool_match_team_winner == worldcup_match_team_winner:
+                    pool_match_points += 2
+                # Pool
+                print(f'{pool_match_points} {pool.user.username}')
+                pool.points += pool_match_points
+                pool.round_key_points += pool_match_points
+                pool.save()
 
-                    # Pool match
-                    pool_match.pool_match_points = pool_match_points
-                    pool_match.analized = True
-                    pool_match.save()
+                # Pool match
+                pool_match.pool_match_points = pool_match_points
+                pool_match.analized = True
+                pool_match.save()
 
-                    # Worldcup match
-                    worldcup_match.analized = True
-                    worldcup_match.save()
-
+                # Worldcup match
+                worldcup_match.analized = True
+                worldcup_match.save()
         return instance
