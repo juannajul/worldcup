@@ -55,7 +55,7 @@ class RetrievePoolView(TemplateView):
     def get_context_data(self, **kwargs):
         """Add user and profile to context."""
         context = super().get_context_data(**kwargs)
-        group_round_finished = False
+        group_round_finished = True
         context['group_round_finished'] = group_round_finished
         """last_match = WorldcupMatch.objects.get(match_number=48)
         first_key_match = WorldcupKeyMatch.objects.get(match_number=49)
