@@ -13,7 +13,7 @@ from worldcup.serializers.pools_key_matches import (
     PoolKeyMatchModelSerializer, CreatePoolKeyMatchModelSerializer, 
     SetPoolKeyMatchPointsModelSerializer, CreateQuarterFinalMatchModelSerializer,
     SavePoolKeyMatchResultModelSerializer, CreateSemiFinalMatchModelSerializer,
-    CreateFinalMatchModelSerializer, Create3rdPlaceMatchModelSerializer)
+    CreateFinalMatchModelSerializer, Create3rdPlaceMatchModelSerializer, setpoolKeyMatchWinner)
 
 # Models 
 from worldcup.models.pools_key_matches import PoolKeyMatch
@@ -75,6 +75,8 @@ class PoolKeyMatchViewSet(
             match_number = int(url_list[0])
             pool = WorldcupPool.objects.get(pk=url_list[1])
             return PoolKeyMatch.objects.filter(pool=pool, match_number=match_number)
+        if self.action == 'set_pool_key_match_winner':
+            PoolKeyMatch.objects.all()
         return PoolKeyMatch.objects.all()
 
     
@@ -163,4 +165,21 @@ class PoolKeyMatchViewSet(
         serializer.save()
         data = PoolKeyMatchModelSerializer(pool_matches, many=True).data
         return Response(data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["patch"])
+    def set_pool_key_match_winner(self, request, *args, **kwargs):
+        #Set pool match points.
+        pool_matches = self.get_queryset()
+        print(pool_matches)
+        serializer = setpoolKeyMatchWinner(
+            instance=pool_matches,
+            data=request.data,
+            partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        data = PoolKeyMatchModelSerializer(pool_matches, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+    
     

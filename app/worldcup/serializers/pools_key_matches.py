@@ -349,6 +349,47 @@ class SavePoolKeyMatchResultModelSerializer(serializers.ModelSerializer):
         match.save()
         return match
 
+class setpoolKeyMatchWinner(serializers.Serializer):
+    def update(self, instance, data):
+        """Update pool match result."""
+        matches = instance
+        
+        for match in matches:
+            
+            team_1_goals = match.team_1_goals
+            team_2_goals = match.team_2_goals
+            team_1_penalty_goals = match.team_1_penalty_goals
+            team_2_penalty_goals = match.team_2_penalty_goals
+            team_1 = match.team_1
+            team_2 = match.team_2
+
+            # winner team
+                        
+            if team_1_goals > team_2_goals:
+                # Team 1 wins
+                team_winner = team_1
+                team_loser = team_2
+            elif team_1_goals < team_2_goals:
+                # Team 2 wins
+                team_winner = team_2
+                team_loser = team_1
+            elif team_1_goals == team_2_goals:
+                # Draw
+                # Team 1 wins
+                match.penalties = True
+                if team_1_penalty_goals > team_2_penalty_goals:
+                    team_winner = team_1
+                    team_loser = team_2
+                    # Team 2 wins
+                elif team_1_penalty_goals < team_2_penalty_goals:
+                    team_winner = team_2
+                    team_loser = team_1   
+
+            match.team_winner = team_winner
+            match.team_loser = team_loser
+            match.save()
+        return match
+
 class SetPoolKeyMatchPointsModelSerializer(serializers.Serializer):
     #Set pool match points serializer.
     
@@ -391,17 +432,21 @@ class SetPoolKeyMatchPointsModelSerializer(serializers.Serializer):
                     elif pool_team_1_goals == pool_team_2_goals and worldcup_team_1_goals == worldcup_team_2_goals:
                         # Draw
                         # Team 1 wins
-                        if pool_team_1__penalties_goals > pool_team_2__penalties_goals and worldcup_team_1__penalties_goals > worldcup_team_2__penalties_goals:
-                            pool_match_points = 3
-                            if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
+                        pool_match_points = 3
+                        if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
                                 # Exact result
                                 pool_match_points = 5
+                        #if pool_team_1__penalties_goals > pool_team_2__penalties_goals and worldcup_team_1__penalties_goals > worldcup_team_2__penalties_goals:
+                        #    pool_match_points = 3
+                            #if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
+                                # Exact result
+                            #    pool_match_points = 5
                         # Team 2 wins
-                        elif pool_team_1__penalties_goals < pool_team_2__penalties_goals and worldcup_team_1__penalties_goals < worldcup_team_2__penalties_goals:
-                            pool_match_points = 3
-                            if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
-                                # Exact result
-                                pool_match_points = 5
+                        #elif pool_team_1__penalties_goals < pool_team_2__penalties_goals and worldcup_team_1__penalties_goals < worldcup_team_2__penalties_goals:
+                        #    pool_match_points = 3
+                        #    if pool_team_1_goals == worldcup_team_1_goals and pool_team_2_goals == worldcup_team_2_goals:
+                        #        # Exact result
+                        #        pool_match_points = 5
 
                     # Qualified Team
                 worldcup_match_team_winner = worldcup_match.team_winner

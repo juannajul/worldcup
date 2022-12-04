@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const setPoolKeyMatchesPointsBtn = document.querySelector('#worldcup-manage-points-key-match-btn');
     setPoolKeyMatchesPointsBtn.addEventListener('click', setPoolKeyMatchesPoints);
 
+    const setPoolKeyMatchesWinnerBtn = document.querySelector('#worldcup-manage-winner-key-match-btn');
+    setPoolKeyMatchesWinnerBtn.addEventListener('click', setPoolKeyMatchesWinner);
+
     const updateUserPasswordBtn = document.querySelector('#worldcup-update-password-btn');
     updateUserPasswordBtn.addEventListener('click', updateUserPassword);
 
@@ -395,6 +398,25 @@ async function setPoolKeyMatchesPoints(){
     var access_token = localStorage.getItem('access_token');
     var token = access_token.slice(1, -1)
     const response = await fetch(`/api/worldcup/pool_key_matches/set_pool_key_match_points/`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        console.log(response);
+}
+
+async function setPoolKeyMatchesWinner(){
+    var access_token = localStorage.getItem('access_token');
+    var token = access_token.slice(1, -1)
+    const response = await fetch(`/api/worldcup/pool_key_matches/set_pool_key_match_winner/`, {
         method: 'PATCH',
         credentials: 'same-origin',
         headers: {
