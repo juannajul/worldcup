@@ -41,7 +41,7 @@ class PoolMatchAdmin(admin.ModelAdmin):
 
 @admin.register(PoolKeyMatch)
 class PoolKeyMatchAdmin(admin.ModelAdmin):
-    list_display = ('match_number', 'user', 'pool', 'pool_match_points',
+    list_display = ('id', 'match_number', 'user', 'pool', 'pool_match_points',
     'team_1', 'team_1_goals','team_1_penalty_goals','team_2', 'team_2_goals', 
     'team_2_penalty_goals', 'round', 'started', 'finished', 'analized')
     list_display_links = ('match_number', 'user','team_1', 'team_2')
