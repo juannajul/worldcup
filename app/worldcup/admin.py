@@ -20,7 +20,7 @@ class WorldcupMatchAdmin(admin.ModelAdmin):
 
 @admin.register(WorldcupKeyMatch)
 class WorldcupKeyMatchAdmin(admin.ModelAdmin):
-    list_display = ('match_number', 'team_1', 'team_1_goals','team_1_penalty_goals','team_2', 'team_2_goals', 'team_2_penalty_goals', 'round', 'started', 'finished', 'analized')
+    list_display = ('id', 'match_number', 'team_1', 'team_1_goals','team_1_penalty_goals','team_2', 'team_2_goals', 'team_2_penalty_goals', 'round', 'started', 'finished', 'analized')
     list_display_links = ('match_number', 'team_1', 'team_2')
     list_filter = ('started', 'finished', 'analized')
 
